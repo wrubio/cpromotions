@@ -168,7 +168,7 @@
 
     <section style="padding: 0 20px;">
         <div class="promotion-container container-fluid">
-            <div class="row">
+            <div id="promotions" class="row">
                 <div class="col-md-4">
                     <div class="panel panel-default panel-promotion">
                         <div class="panel-body" style="padding: 5px 15px;">
@@ -247,7 +247,30 @@
             $.getJSON("https://cpromotion.herokuapp.com/list_promotion").done(function(data){
                 var getData = data;
                 for( var i=0; i<getData.length; i++){
-                    console.log(getData[i])
+                   var fields =  getData[i].fields;
+                    $("#promotions").html("").append(
+                        "<div class='col-md-4'>" +
+                            "<div class='panel panel-default panel-promotion'>" +
+                                "<div class='panel-body' style='padding: 5px 15px;'>" +
+                                    "<div class='container-img-cost' style='position: relative'>" +
+                                        "<div class='promotion-information'>" +
+                                            "<h2 class='promotion-title'>" + fields.promotion_name + "</h2>" +
+                                            "<p class='promotion-cost'> $" + fields.cost + "</p>" +
+                                            "<p class='promotion-description'>" + fields.description + "</p>" +
+                                            "<button type='button' class='btn btn-md default btn-show-promotion'>Ver promoción</button>" +
+                                        "</div>" +
+                                        "<div class='container-image'>" +
+                                            "<div class='relative-container'>" +
+                                                "<div class='rotate-container'>" +
+                                                    "<img src='" + fields.image + "' alt='Ejemplo de imagen' style='width: 100%;'>" +
+                                                "</div>" +
+                                            "</div>" +
+                                        "</div>" +
+                                    "</div>" +
+                                "</div>" +
+                            "</div>" +
+                        "</div>"
+                    )
                 }
             }).fail(function (jqxhr, textStatus, error) {
                 var err = textStatus + ", " + error;
