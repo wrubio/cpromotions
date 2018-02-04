@@ -223,11 +223,28 @@
 
             $.getJSON("https://cpromotion.herokuapp.com/list_promotion").done(function(data){
                 var getData = data;
+                var colorCtr = 0;
+                var promotion_background;
                 for( var i=0; i<getData.length; i++){
                    var fields =  getData[i].fields;
+                   switch (colorCtr) {
+                       case 0:
+                           promotion_background = "#B680CE";
+                           break;
+                       case 1:
+                           promotion_background = "#3B9FE6";
+                           break;
+                       case 2:
+                           promotion_background = "#26C4A2";
+                           break;
+                       default:
+                           promotion_background = "#D7675A";
+                           break;
+                   }
+
                     $("#promotions").append(
                         "<div class='col-md-4'>" +
-                            "<div class='panel panel-default panel-promotion'>" +
+                            "<div class='panel panel-default panel-promotion' style='background-color:"+ promotion_background  +"';>" +
                                 "<div class='panel-body' style='padding: 5px 15px;'>" +
                                     "<div class='container-img-cost' style='position: relative'>" +
                                         "<div class='promotion-information'>" +
