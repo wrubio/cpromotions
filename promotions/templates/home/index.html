@@ -224,21 +224,25 @@
             $.getJSON("https://cpromotion.herokuapp.com/list_promotion").done(function(data){
                 var getData = data;
                 var colorCtr = 0;
-                var promotion_background;
+                var promotion_background, promotion_description;
                 for( var i=0; i<getData.length; i++){
                    var fields =  getData[i].fields;
                    switch (colorCtr) {
                        case 0:
                            promotion_background = "#B680CE";
+                           promotion_description = "#765486";
                            break;
                        case 1:
                            promotion_background = "#3B9FE6";
+                           promotion_description = "#195686";
                            break;
                        case 2:
                            promotion_background = "#26C4A2";
+                           promotion_description= "#247663";
                            break;
                        default:
                            promotion_background = "#D7675A";
+                           promotion_description = "#844137";
                            break;
                    }
 
@@ -250,8 +254,8 @@
                                         "<div class='promotion-information'>" +
                                             "<h2 class='promotion-title'>" + fields.promotion_name + "</h2>" +
                                             "<p class='promotion-cost'> $" + fields.cost + "</p>" +
-                                            "<p class='promotion-description'>" + fields.description + "</p>" +
-                                            "<button type='button' class='btn btn-md default btn-show-promotion'>Ver promoción</button>" +
+                                            "<p class='promotion-description' style='color:"+ promotion_description +";'>" + fields.description + "</p>" +
+                                            "<button type='button' class='btn btn-md default btn-show-promotion' style='color:"+ promotion_background +";'>Ver promoción</button>" +
                                         "</div>" +
                                         "<div class='container-image'>" +
                                             "<div class='relative-container'>" +
