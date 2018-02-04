@@ -191,116 +191,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="panel panel-default panel-promotion" style="background-color: #3B9FE6;">
-                        <div class="panel-body" style="padding: 5px 15px;">
-                            <div class="container-img-cost" style="position: relative">
-                                <div class="promotion-information">
-                                    <h2 class="promotion-title">Nombre de la promoción</h2>
-                                    <p class="promotion-cost">$4700 COP</p>
-                                    <p class="promotion-description">decripcion del producto con un mensaje corto decripcion del producto con un mensaje corto</p>
-                                    <button type="button" class="btn btn-md default btn-show-promotion">Ver promoción</button>
-                                </div>
-                                <div class="container-image">
-                                    <div class="relative-container">
-                                        <div class="rotate-container">
-                                            <img src="https://files.informabtl.com/uploads/2016/02/promociones.jpg" alt="Ejemplo de imagen" style="width: 100%;">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="panel panel-default panel-promotion">
-                        <div class="panel-body" style="padding: 5px 15px;">
-                            <div class="container-img-cost" style="position: relative">
-                                <div class="promotion-information">
-                                    <h2 class="promotion-title">Nombre de la promoción</h2>
-                                    <p class="promotion-cost">$4700 COP</p>
-                                    <p class="promotion-description">decripcion del producto con un mensaje corto decripcion del producto con un mensaje corto</p>
-                                    <button type="button" class="btn btn-md default btn-show-promotion">Ver promoción</button>
-                                </div>
-                                <div class="container-image">
-                                    <div class="relative-container">
-                                        <div class="rotate-container">
-                                            <img src="https://files.informabtl.com/uploads/2016/02/promociones.jpg" alt="Ejemplo de imagen" style="width: 100%;">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="panel panel-default panel-promotion">
-                        <div class="panel-body" style="padding: 5px 15px;">
-                            <div class="container-img-cost" style="position: relative">
-                                <div class="promotion-information">
-                                    <h2 class="promotion-title">Nombre de la promoción</h2>
-                                    <p class="promotion-cost">$4700 COP</p>
-                                    <p class="promotion-description">decripcion del producto con un mensaje corto decripcion del producto con un mensaje corto</p>
-                                    <button type="button" class="btn btn-md default btn-show-promotion">Ver promoción</button>
-                                </div>
-                                <div class="container-image">
-                                    <div class="relative-container">
-                                        <div class="rotate-container">
-                                            <img src="https://files.informabtl.com/uploads/2016/02/promociones.jpg" alt="Ejemplo de imagen" style="width: 100%;">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="panel panel-default panel-promotion">
-                        <div class="panel-body" style="padding: 5px 15px;">
-                            <div class="container-img-cost" style="position: relative">
-                                <div class="promotion-information">
-                                    <h2 class="promotion-title">Nombre de la promoción</h2>
-                                    <p class="promotion-cost">$4700 COP</p>
-                                    <p class="promotion-description">decripcion del producto con un mensaje corto decripcion del producto con un mensaje corto</p>
-                                    <button type="button" class="btn btn-md default btn-show-promotion">Ver promoción</button>
-                                </div>
-                                <div class="container-image">
-                                    <div class="relative-container">
-                                        <div class="rotate-container">
-                                            <img src="https://files.informabtl.com/uploads/2016/02/promociones.jpg" alt="Ejemplo de imagen" style="width: 100%;">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="panel panel-default panel-promotion">
-                        <div class="panel-body" style="padding: 5px 15px;">
-                            <div class="container-img-cost" style="position: relative">
-                                <div class="promotion-information">
-                                    <h2 class="promotion-title">Nombre de la promoción</h2>
-                                    <p class="promotion-cost">$4700 COP</p>
-                                    <p class="promotion-description">decripcion del producto con un mensaje corto decripcion del producto con un mensaje corto</p>
-                                    <button type="button" class="btn btn-md default btn-show-promotion">Ver promoción</button>
-                                </div>
-                                <div class="container-image">
-                                    <div class="relative-container">
-                                        <div class="rotate-container">
-                                            <img src="https://files.informabtl.com/uploads/2016/02/promociones.jpg" alt="Ejemplo de imagen" style="width: 100%;">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
         <div class="pagination" style="text-align: center; padding: 0 20px; width: 100%;">
@@ -355,7 +245,10 @@
         $(document).ready(function () {
 
             $.getJSON("https://cpromotion.herokuapp.com/list_promotion").done(function(data){
-                console.log(data);
+                var getData = data;
+                for( var i=0; i<getData.length; i++){
+                    console.log(getData[i])
+                }
             }).fail(function (jqxhr, textStatus, error) {
                 var err = textStatus + ", " + error;
             });
