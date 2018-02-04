@@ -264,7 +264,10 @@
                                 "</div>" +
                             "</div>" +
                         "</div>"
-                    )
+                    );
+                    colorCtr++;
+                    if(colorCtr === 4) { colorCtr = 0; }
+
                 }
             }).fail(function (jqxhr, textStatus, error) {
                 var err = textStatus + ", " + error;
