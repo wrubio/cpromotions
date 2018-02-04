@@ -354,7 +354,7 @@
     <script>
         $(document).ready(function () {
 
-            $.getJSON("http://127.0.0.1:8000/list_promotion").done(function(data){
+            $.getJSON("https://cpromotion.herokuapp.com/list_promotion").done(function(data){
                 console.log(data);
             }).fail(function (jqxhr, textStatus, error) {
                 var err = textStatus + ", " + error;
