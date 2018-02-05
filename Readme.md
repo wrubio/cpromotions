@@ -16,5 +16,5 @@
  * Descripción de las promociones
  * Fechas de vigencia
  * Imagen de la promoción
- * Modulo de administración
+ * Módulo de administración
  
