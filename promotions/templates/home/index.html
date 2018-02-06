@@ -297,9 +297,16 @@
             $("#promotions").on("click", ".modal-promotion", function(e){
                 e.preventDefault();
                 var promotionId = $(this).attr("id");
-                console.log(promotionId);
+                var splitId = promotionId.split("n");
+                console.log(splitId[1]);
                 $.getJSON("https://cpromotion.herokuapp.com/list_promotion").done(function(data){
                     var promotionData = data;
+                    for(var i=0; i<promotionData.length; i++){
+                        var getId = promotionData[i].pk;
+                        if(getId === splitId[1]){
+                            console.log(getId + "esta es la promocion escogida");
+                        }
+                    }
                 }).fail(function (jqxhr, textStatus, error) {
                     var err = textStatus + ", " + error;
                 });
