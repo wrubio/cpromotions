@@ -240,6 +240,7 @@
             $.getJSON("https://cpromotion.herokuapp.com/list_promotion").done(function(data){
                 getData = data;
                 var colorCtr = 0;
+                console.log(getData);
                 var promotion_background, promotion_description;
                 for( var i=0; i<getData.length; i++){
                    var fields =  getData[i].fields;
@@ -293,7 +294,9 @@
                 var err = textStatus + ", " + error;
             });
 
-            console.log(getData);
+            $("#promotions").on("click", ".modal-promotion", function(e){
+                e.preventDefault();
+            });
 
             $('.header-slide').slick({
                 dots: true,
