@@ -235,8 +235,10 @@
     <script>
         $(document).ready(function () {
 
+            var getData;
+
             $.getJSON("https://cpromotion.herokuapp.com/list_promotion").done(function(data){
-                var getData = data;
+                getData = data;
                 var colorCtr = 0;
                 var promotion_background, promotion_description;
                 for( var i=0; i<getData.length; i++){
@@ -291,6 +293,8 @@
                 var err = textStatus + ", " + error;
             });
 
+            console.log(var);
+
             $('.header-slide').slick({
                 dots: true,
                 arrows: false,
@@ -301,6 +305,8 @@
                 autoplay: true,
                 autoplaySpeed: 6000
             });
+
+
         })
     </script>
 </body>
