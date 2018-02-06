@@ -296,6 +296,13 @@
 
             $("#promotions").on("click", ".modal-promotion", function(e){
                 e.preventDefault();
+                var promotionId = this.attr("id");
+                console.log(promotionId);
+                $.getJSON("https://cpromotion.herokuapp.com/list_promotion").done(function(data){
+                    var promotionData = data;
+                }).fail(function (jqxhr, textStatus, error) {
+                    var err = textStatus + ", " + error;
+                });
             });
 
             $('.header-slide').slick({
