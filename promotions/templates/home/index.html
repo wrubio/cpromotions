@@ -232,6 +232,8 @@
         </div>
     </footer>
 
+    <section id="modal-promotion"></section>
+
     <script>
         $(document).ready(function () {
 
@@ -304,12 +306,40 @@
                     for(var i=0; i<promotionData.length; i++){
                         var getId = promotionData[i].pk;
                         if(getId === splitId[1]){
+
+                            $("#modal-promotion").html("").append(
+                                "<div class='modal fade modal-box' tabindex='-1' role='dialog'>" +
+                                    "<div class='modal-dialog' role='document'>" +
+                                        "<div class='modal-content'>" +
+                                            "<div class='modal-header'>" +
+                                                "<button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</span></button>" +
+                                                "<h4 class='modal-title'>Modal title</h4>" +
+                                            "</div>" +
+                                            "<div class='modal-body'>" +
+                                                "<p>One fine body&hellip;</p>" +
+                                            "</div>" +
+                                            "<div class='modal-footer'>" +
+                                                "<button type='button' class='btn btn-default close-modal' data-dismiss='modal'>Close</button>" +
+                                                "<button type='button' class='btn btn-primary'>Save changes</button>" +
+                                            "</div>" +
+                                        "</div>" +
+                                    "</div>" +
+                                "</div>"
+                            );
+
+                            $(".modal-box").modal('show');
+
                             console.log(getId + "esta es la promocion escogida");
                         }
                     }
                 }).fail(function (jqxhr, textStatus, error) {
                     var err = textStatus + ", " + error;
                 });
+            });
+
+            $("#modal-promotion").on("click", ".close-modal", function(e){
+                e.preventDefault();
+                $(".modal-box").modal('hide');
             });
 
             $('.header-slide').slick({
