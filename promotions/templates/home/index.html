@@ -305,7 +305,7 @@
                     var promotionData = data;
                     for(var i=0; i<promotionData.length; i++){
                         var getId = promotionData[i].pk;
-                        if(getId === splitId[1]){
+                        if( parseInt(getId) === parseInt(splitId[1])){
 
                             $("#modal-promotion").html("").append(
                                 "<div class='modal fade modal-box' tabindex='-1' role='dialog'>" +
