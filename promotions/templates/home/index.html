@@ -328,7 +328,10 @@
                             );
 
                             $(".modal-box").modal('show');
-                            $(".modal-box").modal({ keyboard: false });
+                            $(".modal-box").modal({
+                                backdrop: 'static',
+                                keyboard: false
+                            });
 
                             console.log(getId + "esta es la promocion escogida");
                         }
