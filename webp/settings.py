@@ -79,9 +79,9 @@ WSGI_APPLICATION = 'webp.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'd4mkl1gmkau8tf',
+        'NAME': 'd8vdpra5el1ogi',
         'USER': 'eqslliklyaymaq',
-        'PASSWORD': '8206fa0ae3cd1599195c144b7fb576aed75ce846f2cb159696ca2a8a5dbe551a',
+        'PASSWORD': '736d0755bf9ab034f45f185ec0c1f8608dc95efa54d870306115e4720a5bb57f',
         'HOST': 'ec2-54-83-203-198.compute-1.amazonaws.com',
         'PORT': '5432',
     }
