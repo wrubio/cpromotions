@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Promotions Home</title>
+    <!-- Latest compiled and minified CSS of bootstrap 3.3.7 -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Latest compiled and minified CSS of slickJs 1.8.0 -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.0/slick.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.0/slick-theme.css"/>
+    <!-- Latest compiled and minified Jquery library 3.3.1 -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <!-- Latest compiled and minified JavaScript of bootstrap 3.3.7-->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <!-- Latest compiled and minified slickJs 1.8.0  -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.0/slick.min.js"></script>
+    <!-- Latest compiled and minified slickJs 1.8.0  -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+    <style>
+        .slick-track {
+            height: 760px;
+        }
+        .slick-dots {
+            bottom: 20px;
+        }
+        #login-btn {
+            min-width: 340px;
+            padding: 20px;
+        }
+        .slick-dots li button {
+          display: block;
+          width: 20px;
+          height: 20px;
+          padding: 0;
+          border: none;
+          border-radius: 100%;
+          background-color: #efe4e4 !important;
+          box-shadow: inset 0 1px 1px 0 #999 !important;
+        }
+        .slick-dots li button:hover, .slick-dots li button:focus, .slick-dots li.slick-active button {
+          background-color: #333333 !important;
+          box-shadow: inset 0 1px 1px 0 #555 !important;
+        }
+        .slick-dotted.slick-slider {
+            margin-bottom: 0;
+        }
+        .panel-promotion {
+            margin-bottom: 20px;
+            background-color: #B680CE;
+            border: 1px solid transparent;
+            border-radius: 0;
+            -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
+            box-shadow: 0 1px 1px rgba(0,0,0,.05);
+            height: 260px;
+        }
+        .promotion-information{
+            position: absolute;
+            left: 0;
+            top: 0;
+            max-width: 360px;
+            width: 100%;
+            z-index: 2;
+        }
+        .promotion-title {
+            color: #FFFFFF;
+        }
+        .promotion-cost {
+            font-size: 18px;
+            color: #FFFFFF;
+        }
+        .promotion-description {
+            font-size: 16px;
+            color: #765486;
+            font-weight: 700;
+        }
+        .btn-show-promotion {
+            color: #b581ce;
+            background-color: #ffffff;
+            border-color: #ffffff;
+        }
+        .container-image{
+            position: absolute;
+            top: 4px;
+            right: 0px;
+            max-width: 318px;
+            width: 100%;
+            overflow: hidden;
+            height: 234px;
+            z-index: 1;
+        }
+        .relative-container {
+            position: relative;
+        }
+        .rotate-container {
+            position: absolute;
+            max-width: 278px;
+            width: 100%;
+            height: 215px;
+            background-color: #FFFFFF;
+            transform: rotate(-18deg);
+            top: 81px;
+            left: 43px;
+            padding: 10px;
+        }
+        footer {
+            background-color: #303437;
+            height: 300px;
+            width: 100%;
+            padding: 60px 40px;
+            color: #FFFFFF;
+        }
+    </style>
+</head>
+<body>
+
+    <header >
+        <nav class="navbar navbar-inverse" style="margin-bottom: 0;border-radius: 0;">
+            <div class="container-fluid" style="padding-left: 40px; padding-right: 40px;">
+                <div class="navbar-header">
+                    <button type="button" class="collapsed navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-3" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button> <a href="#" class="navbar-brand">cPromociones</a>
+                </div>
+                <div class="navbar-right" id="" style="padding-right: 10px;">
+                    <ul class="nav navbar-nav navbar-right" style="margin-right: 0;">
+                        <li>
+                            <a href="#">Registrar</a>
+                        </li>
+                        <li>
+                            <div class="dropdown" style="padding-top: 8px;">
+                                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                    Logincd <web></web>
+                                    <span class="caret"></span>
+                                </button>
+                                <ul id="login-btn" class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                    <li>
+                                        <form>
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">Email address</label>
+                                                <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="exampleInputPassword1">Password</label>
+                                                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-sm-6" style="margin-top: -10px; padding-left: 0;">
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox"> Remember me
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6" style="text-align: right; padding-right: 0;">
+                                                    <a href="#" id="lost-password">Lost your password?</a>
+                                                </div>
+                                            </div>
+                                            <hr style="clear: both;margin-top: 54px; margin-bottom: 20px;">
+                                            <div class="form-group">
+                                                <div class="col-sm-offset-4 col-sm-8" style="padding-right: 0">
+                                                    <button type="submit" class="btn btn-default btn-block">Sign in</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="header-slide">
+            <div><img style="width: 100%;" src="https://cdn.lynda.com/course/473879/473879-636457524814693787-16x9.jpg" alt="image html5 ejemplo"></div>
+            <div><img style="width: 100%;" src="http://gaming.gigabyte.eu/AMDmotherboard/images/AMD_mb_board_noLED_1920.jpg" alt="image html5 ejemplo"></div>
+            <div><img style="width: 100%;" src="http://www.kimberley.co.za/wp-content/uploads/2017/06/29621_Fish_Aways-Hash_Brown_Burger_Special-PM-201706.jpg" alt="image html5 ejemplo"></div>
+        </div>
+    </header>
+
+
+    <nav class="navbar navbar-inverse" style="padding-top: 7px;border-radius: 0;">
+        <div class="container-fluid" style="padding-right: 40px; padding-left: 40px;">
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="input-group">
+                            <div class="input-group-btn">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Ciudad <span class="caret"></span></button>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">Ciudad</a></li>
+                                    <li><a href="#">Another action</a></li>
+                                    <li><a href="#">Something else here</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="#">Separated link</a></li>
+                                </ul>
+                            </div><!-- /btn-group -->
+                            <input type="text" class="form-control" aria-label="...">
+                        </div><!-- /input-group -->
+                    </div>
+                    <div class="col-md-2">
+                        <div class="input-group">
+                            <div class="input-group-btn">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categoría <span class="caret"></span></button>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">Categoría</a></li>
+                                    <li><a href="#">Another action</a></li>
+                                    <li><a href="#">Something else here</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="#">Separated link</a></li>
+                                </ul>
+                            </div><!-- /btn-group -->
+                            <input type="text" class="form-control" aria-label="...">
+                        </div><!-- /input-group -->
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </nav>
+
+    <section style="padding: 0 20px;">
+        <div class="promotion-container container-fluid">
+            <div id="promotions" class="row"></div>
+        </div>
+        <div class="pagination" style="text-align: center; padding: 0 20px; width: 100%;">
+            <nav aria-label="Page navigation">
+                <ul class="pagination">
+                    <li>
+                        <a href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li>
+                        <a href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </section>
+
+    <footer>
+        <div class="row">
+            <div class="col-md-4">
+                <h3 style="font-weight: bold;margin-top: -5px;">Titulo</h3>
+                <p>Information</p>
+                <p>Find here</p>
+                <p>Last Promotion</p>
+                <p>Category</p>
+                <p>City</p>
+            </div>
+            <div class="col-md-4" style="text-align: center">
+                <p>cPromotion - Bogotá | 2018 | All rights reserved</p>
+                <p>Street 21 Ave 24A - 73</p>
+                <p>cpromotion@email.com</p>
+            </div>
+            <div class="col-md-4" style="text-align: right;margin-top: -5px;">
+                <h3 style="font-weight: bold";>Social links</h3>
+                <p><i class="fab fa-facebook-square"></i> facebook/asdasdasd </p>
+                <p><i class="fab fa-youtube"></i> youtube/asdasdsa</p>
+                <p><i class="fab fa-twitter"></i> twitter/asdasdasd</p>
+                <p><i class="fab fa-linkedin"></i> linkedin/asdasdsa</p>
+            </div>
+        </div>
+    </footer>
+
+    <section id="modal-promotion"></section>
+
+    <script>
+        $(document).ready(function () {
+
+            var getData;
+
+            $.getJSON("https://cpromotion.herokuapp.com/list_promotion").done(function(data){
+                getData = data;
+                var colorCtr = 0;
+                console.log(getData);
+                var promotion_background, promotion_description;
+                for( var i=0; i<getData.length; i++){
+                   var fields =  getData[i].fields;
+                   switch (colorCtr) {
+                       case 0:
+                           promotion_background = "#B680CE";
+                           promotion_description = "#765486";
+                           break;
+                       case 1:
+                           promotion_background = "#3B9FE6";
+                           promotion_description = "#195686";
+                           break;
+                       case 2:
+                           promotion_background = "#26C4A2";
+                           promotion_description= "#247663";
+                           break;
+                       default:
+                           promotion_background = "#D7675A";
+                           promotion_description = "#844137";
+                           break;
+                   }
+
+                    $("#promotions").append(
+                        "<div class='col-md-4'>" +
+                            "<div class='panel panel-default panel-promotion' style='background-color:"+ promotion_background  +"';>" +
+                                "<div class='panel-body' style='padding: 5px 15px;'>" +
+                                    "<div class='container-img-cost' style='position: relative'>" +
+                                        "<div class='promotion-information'>" +
+                                            "<h2 class='promotion-title'>" + fields.promotion_name + "</h2>" +
+                                            "<p class='promotion-cost'> $" + fields.cost + "</p>" +
+                                            "<p class='promotion-description' style='color:"+ promotion_description +";'>" + fields.description + "</p>" +
+                                            "<button id='promotion"+ getData[i].pk +"' class='modal-promotion' type='button' class='btn btn-md default btn-show-promotion' style='color:"+ promotion_background +";'>Ver promoción</button>" +
+                                        "</div>" +
+                                        "<div class='container-image'>" +
+                                            "<div class='relative-container'>" +
+                                                "<div class='rotate-container'>" +
+                                                    "<img src='" + fields.image + "' alt='Ejemplo de imagen' style='width: 100%;'>" +
+                                                "</div>" +
+                                            "</div>" +
+                                        "</div>" +
+                                    "</div>" +
+                                "</div>" +
+                            "</div>" +
+                        "</div>"
+                    );
+                    colorCtr++;
+                    if(colorCtr === 4) { colorCtr = 0; }
+
+                }
+            }).fail(function (jqxhr, textStatus, error) {
+                var err = textStatus + ", " + error;
+            });
+
+            $("#promotions").on("click", ".modal-promotion", function(e){
+                e.preventDefault();
+                var promotionId = $(this).attr("id");
+                var splitId = promotionId.split("n");
+                console.log(splitId[1]);
+                $.getJSON("https://cpromotion.herokuapp.com/list_promotion").done(function(data){
+                    var promotionData = data;
+                    for(var i=0; i<promotionData.length; i++){
+                        var getId = promotionData[i].pk;
+                        if( parseInt(getId) === parseInt(splitId[1])){
+
+                            $("#modal-promotion").html("").append(
+                                "<div class='modal fade modal-box' data-backdrop='static' data-keyboard='false' tabindex='-1' role='dialog'>" +
+                                    "<div class='modal-dialog' role='document'>" +
+                                        "<div class='modal-content'>" +
+                                            "<div class='modal-header'>" +
+                                                "<button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</span></button>" +
+                                                "<h4 class='modal-title'>Modal title</h4>" +
+                                            "</div>" +
+                                            "<div class='modal-body'>" +
+                                                "<p>One fine body&hellip;</p>" +
+                                            "</div>" +
+                                            "<div class='modal-footer'>" +
+                                                "<button type='button' class='btn btn-default close-modal' data-dismiss='modal'>Close</button>" +
+                                                "<button type='button' class='btn btn-primary'>Save changes</button>" +
+                                            "</div>" +
+                                        "</div>" +
+                                    "</div>" +
+                                "</div>"
+                            );
+
+                            $(".modal-box").modal('show');
+
+                            console.log(getId + "esta es la promocion escogida");
+                        }
+                    }
+                }).fail(function (jqxhr, textStatus, error) {
+                    var err = textStatus + ", " + error;
+                });
+            });
+
+            $("#modal-promotion").on("click", ".close-modal", function(e){
+                e.preventDefault();
+                $(".modal-box").modal('hide');
+            });
+
+            $('.header-slide').slick({
+                dots: true,
+                arrows: false,
+                infinite: true,
+                speed: 500,
+                fade: true,
+                cssEase: 'linear',
+                autoplay: true,
+                autoplaySpeed: 6000
+            });
+
+
+        })
+    </script>
+</body>
+</html>
