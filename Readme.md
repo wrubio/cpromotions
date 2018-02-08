@@ -6,7 +6,7 @@
  * Juan Carlos Arias Ramírez
  * José Rafael Giraldo Tenorio
  * Fredy Gonzalo Captuayo Novoa
- * Wilmer Armando Rubio Rojas
+ * Wilmer Armando Rubio Rojas.
  * Daniel Torres Laserna
  
  ### Objetivo:
