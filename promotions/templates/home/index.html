@@ -331,35 +331,11 @@
                                         <input type="email" class="form-control" id="register-email" placeholder="Email">
                                     </div>
                                     <div class="form-group">
-                                        <label for="category">SCategorías de interes:</label>
+                                        <label for="category">Categorías de interés:</label>
                                         <div class="panel panel-default category-modal-container">
                                             <div id="category-register" class="panel-body">
                                                 <label class="checkbox-inline">
-                                                    <input type="checkbox" id="inlineCheckbox1" value="option1"> asdas  ads a
-                                                </label>
-                                                <label class="checkbox-inline">
-                                                    <input type="checkbox" id="inlineCheckbox2" value="option2"> asda sdas
-                                                </label>
-                                                <label class="checkbox-inline">
-                                                    <input type="checkbox" id="inlineCheckbox3" value="option3"> 3asdasasdasd
-                                                </label>
-                                                <label class="checkbox-inline">
-                                                    <input type="checkbox" id="inlineCheckbox1" value="option1"> 1asdadasdasd
-                                                </label>
-                                                <label class="checkbox-inline">
-                                                    <input type="checkbox" id="inlineCheckbox2" value="option2"> 2asda
-                                                </label>
-                                                <label class="checkbox-inline">
-                                                    <input type="checkbox" id="inlineCheckbox3" value="option3"> 3asdad asasasdasd
-                                                </label>
-                                                <label class="checkbox-inline">
-                                                    <input type="checkbox" id="inlineCheckbox1" value="option1"> 1asdasdasadasd
-                                                </label>
-                                                <label class="checkbox-inline">
-                                                    <input type="checkbox" id="inlineCheckbox2" value="option2"> 2asd adas sadad
-                                                </label>
-                                                <label class="checkbox-inline">
-                                                    <input type="checkbox" id="inlineCheckbox3" value="option3"> 3asdasd asd sada sd sad
+                                                    <input type="checkbox" id="inlineCheckbox1" value="option1"> Categoría 1
                                                 </label>
                                             </div>
                                         </div>
@@ -371,7 +347,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Registrarme</button>
+                            <button id="send-register" type="submit" class="btn btn-primary">Registrarme</button>
                         </div>
                     </form>
                 </div><!-- /.modal-content -->
@@ -483,6 +459,35 @@
             $("#modal-promotion").on("click", ".close-modal", function(e){
                 e.preventDefault();
                 $(".modal-box").modal('hide');
+            });
+            $("#send-register").on("click", function (e) {
+                e.preventDefault();
+                if( $("#register-password".val != $("#register-confirm-password"))){
+                    console.log("las contraseñas no coinciden");
+                } else {
+                    $.ajax({
+                        type: "POST",
+                        url: "https://cpromotion.herokuapp.com/registerUsers/",
+                        data: JSON.stringify({
+                            name: $("#register-name").val(),
+                            last_name: $("#register-last-name").val(),
+                            country: $("#register-country").val(),
+                            city: $("#register-city").val(),
+                            address: $("#register-address").val(),
+                            username: $("#register-username").val(),
+                            password: $("#register-password").val(),
+                            email: $("#register-email").val()
+                        }),
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function(data){
+                            window.location("https://cpromotion.herokuapp.com/");
+                        },
+                        failure: function(errMessage){
+                            console.log("Error enviando datos de registro");
+                        }
+                    });
+                }
             });
 
             $("#btn-register").on("click", function(){

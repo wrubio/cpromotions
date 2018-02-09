@@ -31,7 +31,7 @@ def add_user(request):
         city = jsonUser["city"]
         address = jsonUser["address"]
         email = jsonUser["email"]
-        category = jsonUser["category"]
+        #category = jsonUser["category"]
 
         user_model = User.objects.create_user(username=username, password=password)
         user_model.name = name
@@ -40,6 +40,6 @@ def add_user(request):
         user_model.city = city
         user_model.address = address
         user_model.email = email
-        user_model.category = category
+        #user_model.category = category
 
         return django.http.HttpResponse(serializers.serialize("json", [user_model]))
