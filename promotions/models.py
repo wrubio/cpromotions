@@ -47,12 +47,12 @@ class UserRegister(ModelForm):
     username = forms.CharField(max_length=30)
     password = forms.CharField(max_length=30)
     confirm_password = forms.CharField(max_length=30)
-    image = forms.TextField()
+    image = forms.CharField(widget=forms.Textarea)
     country = forms.CharField(max_length=50)
     city = forms.CharField(max_length=50)
     address = forms.CharField(max_length=50)
     email = forms.CharField(max_length=50)
-    category = forms.ForeignKey(Category, null=True, blank=True)
+    category = models.ForeignKey(Category, null=True, blank=True)
 
     class Meta:
         model = User
