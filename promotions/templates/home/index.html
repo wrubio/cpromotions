@@ -462,7 +462,7 @@
             });
             $("#send-register").on("click", function (e) {
                 e.preventDefault();
-                if( $("#register-password".val != $("#register-confirm-password"))){
+                if( $("#register-password".val != $("#register-confirm-password").val())){
                     console.log("las contraseñas no coinciden");
                 } else {
                     $.ajax({
