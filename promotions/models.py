@@ -52,7 +52,7 @@ class UserRegister(ModelForm):
     city = forms.CharField(max_length=50)
     address = forms.CharField(max_length=50)
     email = forms.CharField(max_length=50)
-    category = models.ForeignKey(Category, null=True, blank=True)
+    category = forms.CharField(max_length=100)
 
     class Meta:
         model = User
