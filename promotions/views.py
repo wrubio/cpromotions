@@ -42,4 +42,4 @@ def add_user(request):
         user_model.email = email
         #user_model.category = category
 
-        return django.http.HttpResponse(serializers.serialize("json", [user_model]))
+    return django.http.HttpResponse(serializers.serialize("json", [user_model]))
