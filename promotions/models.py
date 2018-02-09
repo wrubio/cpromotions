@@ -28,21 +28,6 @@ class Promotion(models.Model):
         return u'{}'.format(self.promotion_name)
 
 
-"""
-class User(models.Model):
-    name = models.CharField(max_length=100)
-    last_name = models.CharField(max_length=100, null=True, blank=True)
-    username = models.CharField(max_length=30)
-    password = models.CharField(max_length=15)
-    image = models.TextField()
-    country = models.CharField(max_length=50)
-    city = models.CharField(max_length=50)
-    address = models.CharField(max_length=50)
-    email = models.CharField(max_length=50)
-    category = models.ForeignKey(Category, null=True, blank=True, on_delete=models.CASCADE)
-
-"""
-
 class Message(models.Model):
     message = models.CharField(max_length=300)
     mail = models.CharField(max_length=100, null=True, blank=True)
@@ -70,7 +55,8 @@ class UserRegister(ModelForm):
 
     class Meta:
         model = User
-        fields = ["name", "last_name", "username", "password", "confirm_password", "country", "city", "address", "email", "category"]
+        fields = ["name", "last_name", "username", "password", "confirm_password", "country", "city", "address",
+                  "email", "category"]
 
     def clean_username(self):
         username = self.cleaned_data['username']
