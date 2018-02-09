@@ -277,122 +277,83 @@
     <section id="modal-register">
 
     </section>
-        <div class="modal fade modal-register" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
+        <div class="modal fade modal-register" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title">Modal title</h4>
-                    </div>
-                    <div class="modal-body">
-                        <form>
-                            <div class="form-group">
-                                <label for="name">Nombre:</label>
-                                <input type="text" class="form-control" id="register-name" placeholder="Su nombre">
-                            </div>
-                            <div class="form-group">
-                                <label for="lastName">Apellidos:</label>
-                                <input type="text" class="form-control" id="register-last-name" placeholder="Sus Apellidos">
-                            </div>
-                            <div class="form-group">
-                                <label for="pais">Pais:</label>
-                                <input type="text" class="form-control" id="register-country" placeholder="País de residencia">
-                            </div>
-                            <div class="form-group">
-                                <label for="ciudad">Ciudad:</label>
-                                <input type="text" class="form-control" id="register-city" placeholder="Ciudad de residencia">
-                            </div>
-                            <div class="form-group">
-                                <label for="direccion">Dirección de correspondencia:</label>
-                                <input type="text" class="form-control" id="register-address" placeholder="Dirección de correspondencia">
-                            </div>
-                            <hr>
-                            <div class="form-group">
-                                <label for="username">Username:</label>
-                                <input type="text" class="form-control" id="register-username" placeholder="Nombre de usuario">
-                            </div>
-                            <div class="form-group">
-                                <label for="password">Contraseña:</label>
-                                <input type="password" class="form-control" id="register-password" placeholder="Contraseña">
-                            </div>
-                            <div class="form-group">
-                                <label for="confirmPassword">Confirmar contraseña:</label>
-                                <input type="password" class="form-control" id="register-confirm-password" placeholder="Confirmar contraseña">
-                            </div>
-                            <div class="form-group">
-                                <label for="email">email:</label>
-                                <input type="email" class="form-control" id="register-email" placeholder="Email">
-                            </div>
-                            <div class="form-group">
-                                <label for="category">Escoger categorias:</label>
-                                <div class="panel panel-default category-modal-container">
-                                    <div id="category-register" class="panel-body row">
-                                        <div class="col-ms-4">
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox"> Check me out
-                                                </label>
-                                            </div>
+                    <form>
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title">Modal title</h4>
+                        </div>
+                        <div class="modal-body">
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="name">Nombre:</label>
+                                            <input type="text" class="form-control" id="register-name" placeholder="Su nombre">
                                         </div>
-                                        <div class="col-ms-4">
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox"> Check me out
-                                                </label>
-                                            </div>
+                                        <div class="form-group">
+                                            <label for="lastName">Apellidos:</label>
+                                            <input type="text" class="form-control" id="register-last-name" placeholder="Sus Apellidos">
                                         </div>
-                                        <div class="col-ms-4">
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox"> Check me out
-                                                </label>
-                                            </div>
+                                        <div class="form-group">
+                                            <label for="pais">Pais:</label>
+                                            <input type="text" class="form-control" id="register-country" placeholder="País de residencia">
                                         </div>
-                                        <div class="col-ms-4">
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox"> Check me out
-                                                </label>
-                                            </div>
+                                        <div class="form-group">
+                                            <label for="ciudad">Ciudad:</label>
+                                            <input type="text" class="form-control" id="register-city" placeholder="Ciudad de residencia">
                                         </div>
-                                        <div class="col-ms-4">
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox"> Check me out
-                                                </label>
-                                            </div>
+                                        <div class="form-group">
+                                            <label for="direccion">Dirección de correspondencia:</label>
+                                            <input type="text" class="form-control" id="register-address" placeholder="Dirección de correspondencia">
                                         </div>
-                                        <div class="col-ms-4">
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox"> Check me out
-                                                </label>
-                                            </div>
+                                    </div>
+                                    <div class="clo-md-6">
+                                        <div class="form-group">
+                                            <label for="username">Username:</label>
+                                            <input type="text" class="form-control" id="register-username" placeholder="Nombre de usuario">
                                         </div>
-                                        <div class="col-ms-4">
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox"> Check me out
-                                                </label>
-                                            </div>
+                                        <div class="form-group">
+                                            <label for="password">Contraseña:</label>
+                                            <input type="password" class="form-control" id="register-password" placeholder="Contraseña">
                                         </div>
-                                        <div class="col-ms-4">
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox"> Check me out
-                                                </label>
-                                            </div>
+                                        <div class="form-group">
+                                            <label for="confirmPassword">Confirmar contraseña:</label>
+                                            <input type="password" class="form-control" id="register-confirm-password" placeholder="Confirmar contraseña">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="email">email:</label>
+                                            <input type="email" class="form-control" id="register-email" placeholder="Email">
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <button type="submit" class="btn btn-default">Submit</button>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
-                    </div>
+
+                                <hr>
+
+                                <div class="form-group">
+                                    <label for="category">Escoger categorias:</label>
+                                    <div class="panel panel-default category-modal-container">
+                                        <div id="category-register" class="panel-body row">
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" id="inlineCheckbox1" value="option1"> 1
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" id="inlineCheckbox2" value="option2"> 2
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" id="inlineCheckbox3" value="option3"> 3
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Registrarme</button>
+                        </div>
+                    </form>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
