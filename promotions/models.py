@@ -50,6 +50,10 @@ class UserProfile(models.Model):
     address = models.CharField(max_length=50)
     category = models.CharField(max_length=100)
 
+    class Meta:
+        model = 'Profile'
+        fields = ["user", "image", "country", "city", "address", "category"]
+
     def __unicode__(self):
         return u'{}'.format(self.user.username)
 
