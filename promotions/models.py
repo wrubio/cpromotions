@@ -81,3 +81,6 @@ class UserProfile(models.Model):
     city = forms.CharField(max_length=50)
     address = forms.CharField(max_length=50)
     category = forms.CharField(max_length=100)
+
+    def __unicode__(self):
+        return u'{}'.format(self.user.username)
