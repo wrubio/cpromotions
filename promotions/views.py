@@ -35,6 +35,6 @@ def add_user(request):
         user_model.last_name = last_name
         user_model.email = email
         user_model.save()
-        UserProfile.objects.create(country=jsonUser['country'], city=jsonUser['city'], address=jsonUser['address'])
+        UserProfile.objects.create(user=jsonUser['username'], country=jsonUser['country'], city=jsonUser['city'], address=jsonUser['address'])
 
     return HttpResponse(serializers.serialize("json", [user_model]))
