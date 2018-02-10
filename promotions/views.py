@@ -68,7 +68,8 @@ def logout_user(request):
 def user_logged(request):
     if request.user.is_authenticated():
         message = "logged"
+        user = User.username
     else:
         message = "logout"
 
-    return JsonResponse({"message": message})
+    return JsonResponse({"message": message, "username": user})
