@@ -71,5 +71,6 @@ def user_logged(request):
         user = request.user.username
     else:
         message = "logout"
+        user = ""
 
     return JsonResponse({"message": message, "username": user})
