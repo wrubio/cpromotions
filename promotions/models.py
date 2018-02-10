@@ -1,7 +1,6 @@
 # coding=utf-8
 from __future__ import unicode_literals
 
-
 from django import forms
 from django.contrib.auth.models import User
 from django.forms import ModelForm
@@ -44,22 +43,16 @@ class Favorite(models.Model):
 
 
 class UserRegister(ModelForm):
-    name = forms.CharField(max_length=100)
+    first_name = forms.CharField(max_length=100)
     last_name = forms.CharField(max_length=100)
     username = forms.CharField(max_length=30)
     password = forms.CharField(max_length=30)
     confirm_password = forms.CharField(max_length=30)
-    image = forms.CharField(widget=forms.Textarea)
-    country = forms.CharField(max_length=50)
-    city = forms.CharField(max_length=50)
-    address = forms.CharField(max_length=50)
     email = forms.CharField(max_length=50)
-    category = forms.CharField(max_length=100)
 
     class Meta:
         model = User
-        fields = ["name", "last_name", "username", "password", "confirm_password", "country", "city", "address",
-                  "email", "category"]
+        fields = ["first_name", "last_name", "username", "password", "confirm_password", "email"]
 
     def clean_username(self):
         username = self.cleaned_data['username']
@@ -79,3 +72,12 @@ class UserRegister(ModelForm):
         if password != confirm_password:
             raise forms.ValidationError("Las contraseñas no coinciden")
         return password
+
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User)
+    image = forms.CharField(widget=forms.Textarea)
+    country = forms.CharField(max_length=50)
+    city = forms.CharField(max_length=50)
+    address = forms.CharField(max_length=50)
+    category = forms.CharField(max_length=100)

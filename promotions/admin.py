@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Promotion, Message, Category, Favorite
+from .models import Promotion, Message, Category, Favorite, UserProfile
 
 
 # Register your models here.
@@ -15,3 +15,4 @@ admin.site.register(Promotion, PromotionAdmin)
 admin.site.register(Message, MessageAdmin)
 admin.site.register(Category)
 admin.site.register(Favorite)
+admin.site.register(UserProfile)

@@ -23,7 +23,7 @@ def home(request):
 def add_user(request):
     if request.method == 'POST':
         jsonUser = json.loads(request.body)
-        name = jsonUser['name']
+        first_name = jsonUser['first_name']
         last_name = jsonUser['last_name']
         country = jsonUser['country']
         city = jsonUser['city']
@@ -33,7 +33,7 @@ def add_user(request):
         email = jsonUser['email']
 
         user_model = User.objects.create_user(username=username, password=password)
-        user_model.name = name
+        user_model.first_name = first_name
         user_model.last_name = last_name
         user_model.country = country
         user_model.city = city
