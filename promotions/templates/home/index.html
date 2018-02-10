@@ -129,6 +129,9 @@
                         <li>
                             <a id="btn-register" href="#">Registrar</a>
                         </li>
+                        <li style="display: none;">
+                            <a href="#" id="username-welcome">Bienvenido <span class=""></span></a>
+                        </li>
                         <li>
                             <div class="dropdown" style="padding-top: 8px;">
                                 <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -139,12 +142,12 @@
                                     <li>
                                         <form>
                                             <div class="form-group">
-                                                <label for="exampleInputEmail1">Email address</label>
-                                                <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+                                                <label for="loginEmail">Username:</label>
+                                                <input type="email" class="form-control" id="login-username" placeholder="Username">
                                             </div>
                                             <div class="form-group">
-                                                <label for="exampleInputPassword1">Password</label>
-                                                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                                                <label for="loginPassword">Password</label>
+                                                <input type="password" class="form-control" id="login-password" placeholder="Password">
                                             </div>
                                             <div class="form-group">
                                                 <div class="col-sm-6" style="margin-top: -10px; padding-left: 0;">
@@ -161,7 +164,7 @@
                                             <hr style="clear: both;margin-top: 54px; margin-bottom: 20px;">
                                             <div class="form-group">
                                                 <div class="col-sm-offset-4 col-sm-8" style="padding-right: 0">
-                                                    <button type="submit" class="btn btn-default btn-block">Sign in</button>
+                                                    <button id="login-promotion" type="submit" class="btn btn-default btn-block">Ingresar</button>
                                                 </div>
                                             </div>
                                         </form>
@@ -275,8 +278,6 @@
 
     <section id="modal-promotion"></section>
     <section id="modal-register">
-
-    </section>
         <div class="modal fade modal-register" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
@@ -343,9 +344,14 @@
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
-    <script>
+    </section>
+
+    <script type="text/javascript">
         $(document).ready(function () {
 
+            // ==============================================================================================
+            // Promotion object creator controller
+            // ==============================================================================================
             var getData;
 
             $.getJSON("https://cpromotion.herokuapp.com/list_promotion").done(function(data){
@@ -404,7 +410,9 @@
             }).fail(function (jqxhr, textStatus, error) {
                 var err = textStatus + ", " + error;
             });
-
+            // ==============================================================================================
+            // Promotion Modal controller
+            // ==============================================================================================
             $("#promotions").on("click", ".modal-promotion", function(e){
                 e.preventDefault();
                 var promotionId = $(this).attr("id");
@@ -450,6 +458,9 @@
                 e.preventDefault();
                 $(".modal-box").modal('hide');
             });
+            // ==============================================================================================
+            // Register controller
+            // ==============================================================================================
             $("#send-register").on("click", function (e) {
                 e.preventDefault();
                 if( $("#register-password").val() != $("#register-confirm-password").val() ){
@@ -484,7 +495,36 @@
             $("#btn-register").on("click", function(){
                $(".modal-register").modal('show');
             });
+            // ==============================================================================================
+            // Login controller
+            // ==============================================================================================
+            $("#login-promotion").on("click", function(e){
+                e.preventDefault();
+                $.ajax({
+                    type: "POST",
+                    url: "https://cpromotion.herokuapp.com/login_users/",
+                    data: JSON.stringify({
+                        username: $("#login-username").val(),
+                        password: $("#login-password").val()
+                    }),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function(data){
+                        if(data.message === "ok"){
+                            window.location.href = "https://cpromotion.herokuapp.com/";
+                        } else {
+                            console.log(data.message); // rear el texto para mostrar el retorno
+                        }
 
+                    },
+                    failure: function(errMessage){
+                        console.log("Error enviando datos de registro");
+                    }
+                });
+            });
+            // ==============================================================================================
+            // Slider controller
+            // ==============================================================================================
             $('.header-slide').slick({
                 dots: true,
                 arrows: false,

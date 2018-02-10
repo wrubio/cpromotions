@@ -1,8 +1,9 @@
 import json
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.core import serializers
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth import authenticate, login
 
 from promotions.models import UserProfile
 from . import models
@@ -38,3 +39,18 @@ def add_user(request):
         UserProfile.objects.create(user=user_model, country=jsonUser['country'], city=jsonUser['city'], address=jsonUser['address'])
 
     return HttpResponse(serializers.serialize("json", [user_model]))
+
+@csrf_exempt
+def login_user(request):
+    if request.method == 'POST':
+        jsonUser = json.loads(request.body)
+        username = jsonUser['username']
+        password = jsonUser['password']
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            login(request, user)
+            message = "ok"
+        else:
+            message = "Nombre de usuario o clave no valido"
+
+    return JsonResponse({"message":message})
