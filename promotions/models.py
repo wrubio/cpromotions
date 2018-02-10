@@ -76,11 +76,11 @@ class UserRegister(ModelForm):
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
-    image = forms.CharField(widget=forms.Textarea)
-    country = forms.CharField(max_length=50)
-    city = forms.CharField(max_length=50)
-    address = forms.CharField(max_length=50)
-    category = forms.CharField(max_length=100)
+    image = models.CharField(widget=forms.Textarea)
+    country = models.CharField(max_length=50)
+    city = models.CharField(max_length=50)
+    address = models.CharField(max_length=50)
+    category = models.CharField(max_length=100)
 
     def __unicode__(self):
         return u'{}'.format(self.user.username)
