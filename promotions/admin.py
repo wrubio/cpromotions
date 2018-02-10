@@ -10,9 +10,11 @@ class PromotionAdmin(admin.ModelAdmin):
 class MessageAdmin(admin.ModelAdmin):
     list_display = ('message', 'user')
 
+class ProfileAdmin(admin.ModelAdmin):
+    list_display = ('user', 'country', 'city', 'address', 'category', 'image')
 
 admin.site.register(Promotion, PromotionAdmin)
 admin.site.register(Message, MessageAdmin)
 admin.site.register(Category)
 admin.site.register(Favorite)
-admin.site.register(UserProfile)
+admin.site.register(UserProfile, ProfileAdmin)
