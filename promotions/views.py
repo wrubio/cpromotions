@@ -29,15 +29,12 @@ def add_user(request):
         username = jsonUser['username']
         password = jsonUser['password']
         email = jsonUser['email']
-        country = jsonUser['country']
-        city = jsonUser['city']
-        address = jsonUser['address']
 
         user_model = User.objects.create_user(username=username, password=password)
         user_model.first_name = first_name
         user_model.last_name = last_name
         user_model.email = email
         user_model.save()
-        UserProfile.objects.create(country=country, address=address, city=city)
+        UserProfile.objects.create(country=jsonUser['country'], city=jsonUser['city'], address=jsonUser['address'])
 
     return HttpResponse(serializers.serialize("json", [user_model]))

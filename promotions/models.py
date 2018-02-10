@@ -43,15 +43,11 @@ class Favorite(models.Model):
 
 
 class UserProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
     image = models.CharField(max_length=600)
     country = models.CharField(max_length=50)
     city = models.CharField(max_length=50)
     address = models.CharField(max_length=50)
     category = models.CharField(max_length=100)
-
-    def __unicode__(self):
-        return u'{}'.format(self.user.username)
 
 
 class UserRegister(ModelForm):
