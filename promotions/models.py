@@ -43,7 +43,7 @@ class Favorite(models.Model):
 
 
 class UserProfile(models.Model):
-    user = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, null=True, blank=True, on_delete=models.CASCADE)
     image = models.CharField(max_length=600)
     country = models.CharField(max_length=50)
     city = models.CharField(max_length=50)
