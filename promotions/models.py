@@ -42,6 +42,18 @@ class Favorite(models.Model):
     user = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE)
 
 
+class UserProfile(models.Model):
+    user = models.OneToOneField(User)
+    image = models.CharField(max_length=600)
+    country = models.CharField(max_length=50)
+    city = models.CharField(max_length=50)
+    address = models.CharField(max_length=50)
+    category = models.CharField(max_length=100)
+
+    def __unicode__(self):
+        return u'{}'.format(self.user.username)
+
+
 class UserRegister(ModelForm):
     first_name = forms.CharField(max_length=100)
     last_name = forms.CharField(max_length=100)
@@ -72,15 +84,3 @@ class UserRegister(ModelForm):
         if password != confirm_password:
             raise forms.ValidationError("Las contraseñas no coinciden")
         return password
-
-
-class UserProfile(models.Model):
-    user = models.OneToOneField(User)
-    image = models.CharField(max_length=600)
-    country = models.CharField(max_length=50)
-    city = models.CharField(max_length=50)
-    address = models.CharField(max_length=50)
-    category = models.CharField(max_length=100)
-
-    def __unicode__(self):
-        return u'{}'.format(self.user.username)
