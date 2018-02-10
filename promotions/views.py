@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.core import serializers
 from django.views.decorators.csrf import csrf_exempt
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 
 from promotions.models import UserProfile
 from . import models
@@ -36,9 +36,11 @@ def add_user(request):
         user_model.last_name = last_name
         user_model.email = email
         user_model.save()
-        UserProfile.objects.create(user=user_model, country=jsonUser['country'], city=jsonUser['city'], address=jsonUser['address'])
+        UserProfile.objects.create(user=user_model, country=jsonUser['country'], city=jsonUser['city'],
+                                   address=jsonUser['address'])
 
     return HttpResponse(serializers.serialize("json", [user_model]))
+
 
 @csrf_exempt
 def login_user(request):
@@ -53,4 +55,20 @@ def login_user(request):
         else:
             message = "Nombre de usuario o clave no valido"
 
-    return JsonResponse({"message":message})
+    return JsonResponse({"message": message})
+
+
+@csrf_exempt
+def logout_user(request):
+    logout(request)
+    return JsonResponse({"message": "ok"})
+
+
+@csrf_exempt
+def user_logged(request):
+    if request.user.is_authenticated():
+        message = "logged"
+    else:
+        message = "logout"
+
+    return JsonResponse({"message": message})

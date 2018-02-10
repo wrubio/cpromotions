@@ -126,13 +126,13 @@
                 </div>
                 <div class="navbar-right" id="" style="padding-right: 10px;">
                     <ul class="nav navbar-nav navbar-right" style="margin-right: 0;">
-                        <li>
+                        <li id="li-register" style="display: none;">
                             <a id="btn-register" href="#">Registrar</a>
                         </li>
-                        <li style="display: none;">
+                        <li id="li-welcome" style="display: none;">
                             <a href="#" id="username-welcome">Bienvenido <span class=""></span></a>
                         </li>
-                        <li>
+                        <li id="li-login" style="display: none;">
                             <div class="dropdown" style="padding-top: 8px;">
                                 <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                     Login <web></web>
@@ -522,6 +522,26 @@
                     }
                 });
             });
+            // ==============================================================================================
+            // Logout controller
+            // ==============================================================================================
+            // ==============================================================================================
+            // Is auth controller
+            // ==============================================================================================
+            function idLogged(){
+                $.getJSON("https://cpromotion.herokuapp.com/logged_users/").done(function(data){
+                    if( data.message === "logged"){
+                        $("#li-login, #li-register").css("display", "none");
+                        $("#li-welcome").css("display", "block");
+                    } else {
+                        $("#li-login, #li-register").css("display", "none");
+                        $("#li-welcome").css("display", "block");
+                    }
+                }).fail(function(jqxhr, textStatus, error) {
+                    var err = textStatus + ", " + error;
+                });
+            }
+            idLogged();
             // ==============================================================================================
             // Slider controller
             // ==============================================================================================
