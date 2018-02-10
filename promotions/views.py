@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from django.core import serializers
 from django.views.decorators.csrf import csrf_exempt
 
+from promotions.models import UserProfile
 from . import models
 from django.contrib.auth.models import User
 
@@ -37,6 +38,6 @@ def add_user(request):
         user_model.last_name = last_name
         user_model.email = email
         user_model.save()
-        models.UserProfile.objects.create(user=username, country=country, address=address, city=city)
+        UserProfile.objects.create(country=country, address=address, city=city)
 
     return HttpResponse(serializers.serialize("json", [user_model]))
