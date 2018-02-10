@@ -27,6 +27,15 @@
             min-width: 340px;
             padding: 20px;
         }
+        #li-welcome {
+            padding-top: 14px;
+            color: #ffffff;
+            margin-right: 15px;
+        }
+        #li-username {
+            padding-top: 7px;
+            color: #ffffff;
+        }
         .slick-dots li button {
           display: block;
           width: 20px;
@@ -134,7 +143,7 @@
                         </li>
                         <li id="li-username" style="display: none;">
                             <div class="btn-group">
-                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: transparent; color: #FFFFFF;">
                                     <span class="btn-username"></span> <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu">
@@ -143,7 +152,7 @@
                                     <li><a href="#">Something else here</a></li>
                                     <li role="separator" class="divider"></li>
                                     <li>
-                                        <button id="btn-logout" class="btn btn-default" type="submit">Logout</button>
+                                        <button id="btn-logout" class="btn btn-danger btn-block" type="submit">Logout</button>
                                     </li>
                                 </ul>
                             </div>
@@ -541,14 +550,24 @@
             // ==============================================================================================
             // Logout controller
             // ==============================================================================================
-
+            $("#btn-logout").on("click", function(e){
+               e.preventDefault();
+               $.getJSON("https://cpromotion.herokuapp.com/logout_users/").done(function(data){
+                    if( data.message === "ok"){
+                        window.location.reload();
+                    } else {
+                        console.log("Error al cerrar sesion");
+                    }
+               }).fail(function(jqxhr, textStatus, error) {
+                    var err = textStatus + ", " + error;
+                });
+            });
             // ==============================================================================================
             // Is auth controller
             // ==============================================================================================
             (function (){
                 $.getJSON("https://cpromotion.herokuapp.com/logged_users/").done(function(data){
                     if( data.message === "logged"){
-                        console.log(data);
                         $("#li-login, #li-register").css("display", "none");
                         $("#li-welcome, #li-username").css("display", "block");
                         $(".btn-username").html("").append(data.username);
