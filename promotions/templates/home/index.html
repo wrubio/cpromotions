@@ -554,7 +554,7 @@
                e.preventDefault();
                $.getJSON("https://cpromotion.herokuapp.com/logout_users/").done(function(data){
                     if( data.message === "ok"){
-                        window.location.reload();
+                        window.location.href = "https://cpromotion.herokuapp.com/";
                     } else {
                         console.log("Error al cerrar sesion");
                     }
@@ -572,6 +572,7 @@
                         $("#li-welcome, #li-username").css("display", "block");
                         $(".btn-username").html("").append(data.username);
                     } else {
+                        window.location.href = "https://cpromotion.herokuapp.com/";
                         $("#li-login, #li-register").css("display", "none");
                         $("#li-welcome").css("display", "block");
                     }
