@@ -130,7 +130,23 @@
                             <a id="btn-register" href="#">Registrar</a>
                         </li>
                         <li id="li-welcome" style="display: none;">
-                            <a href="#" id="username-welcome">Bienvenido <span class=""></span></a>
+                            Bienvenido
+                        </li>
+                        <li id="li-username" style="display: none;">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="btn-username"></span> <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">Action</a></li>
+                                    <li><a href="#">Another action</a></li>
+                                    <li><a href="#">Something else here</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li>
+                                        <button id="btn-logout" class="btn btn-default" type="submit">Logout</button>
+                                    </li>
+                                </ul>
+                            </div>
                         </li>
                         <li id="li-login" style="display: none;">
                             <div class="dropdown" style="padding-top: 8px;">
@@ -534,7 +550,8 @@
                     if( data.message === "logged"){
                         console.log(data);
                         $("#li-login, #li-register").css("display", "none");
-                        $("#li-welcome").css("display", "block");
+                        $("#li-welcome, #li-username").css("display", "block");
+                        $(".btn-username").html("").append(data.username);
                     } else {
                         $("#li-login, #li-register").css("display", "none");
                         $("#li-welcome").css("display", "block");
