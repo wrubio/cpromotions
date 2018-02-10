@@ -572,8 +572,8 @@
                         $("#li-welcome, #li-username").css("display", "block");
                         $(".btn-username").html("").append(data.username);
                     } else {
-                        $("#li-login, #li-register").css("display", "none");
-                        $("#li-welcome").css("display", "block");
+                        $("#li-login, #li-register").css("display", "block");
+                        $("#li-welcome, #li-username").css("display", "none");
                     }
                 }).fail(function(jqxhr, textStatus, error) {
                     var err = textStatus + ", " + error;
