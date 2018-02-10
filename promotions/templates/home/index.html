@@ -532,7 +532,7 @@
             (function (){
                 $.getJSON("https://cpromotion.herokuapp.com/logged_users/").done(function(data){
                     if( data.message === "logged"){
-                        consle.log(data);
+                        console.log(data);
                         $("#li-login, #li-register").css("display", "none");
                         $("#li-welcome").css("display", "block");
                     } else {
