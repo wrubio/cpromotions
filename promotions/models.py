@@ -76,7 +76,7 @@ class UserRegister(ModelForm):
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
-    image = message = models.CharField(max_length=600)
+    image = models.CharField(max_length=600)
     country = models.CharField(max_length=50)
     city = models.CharField(max_length=50)
     address = models.CharField(max_length=50)
