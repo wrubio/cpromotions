@@ -1,6 +1,6 @@
-from django.core.serializers import json
+import json
 from django.shortcuts import render
-import django.http
+from django.http import HttpResponse
 from django.core import serializers
 from django.views.decorators.csrf import csrf_exempt
 
@@ -12,7 +12,7 @@ from django.contrib.auth.models import User
 @csrf_exempt
 def list_promotion(request):
     promotions = serializers.serialize('json', models.Promotion.objects.all())
-    return django.http.HttpResponse(promotions, content_type='application/json')
+    return HttpResponse(promotions, content_type='application/json')
 
 
 def home(request):
@@ -21,17 +21,16 @@ def home(request):
 
 @csrf_exempt
 def add_user(request):
-    if request.method == "POST":
+    if request.method == 'POST':
         jsonUser = json.loads(request.body)
-        name = jsonUser["name"]
-        last_name = jsonUser["last_name"]
-        country = jsonUser["country"]
-        city = jsonUser["city"]
-        address = jsonUser["address"]
-        username = jsonUser["username"]
-        password = jsonUser["password"]
-        email = jsonUser["email"]
-        #category = jsonUser["category"]
+        name = jsonUser['name']
+        last_name = jsonUser['last_name']
+        country = jsonUser['country']
+        city = jsonUser['city']
+        address = jsonUser['address']
+        username = jsonUser['username']
+        password = jsonUser['password']
+        email = jsonUser['email']
 
         user_model = User.objects.create_user(username=username, password=password)
         user_model.name = name
@@ -41,5 +40,4 @@ def add_user(request):
         user_model.address = address
         user_model.email = email
         user_model.save()
-        #user_model.category = category
-    return django.http.HttpResponse(serializers.serialize("json", [user_model]))
+    return HttpResponse(serializers.serialize("json", [user_model]))
