@@ -23,13 +23,13 @@ def home(request):
 def add_user(request):
     if request.method == "POST":
         jsonUser = json.loads(request.body)
-        username = jsonUser["username"]
         name = jsonUser["name"]
         last_name = jsonUser["last_name"]
-        password = jsonUser["password"]
         country = jsonUser["country"]
         city = jsonUser["city"]
         address = jsonUser["address"]
+        username = jsonUser["username"]
+        password = jsonUser["password"]
         email = jsonUser["email"]
         #category = jsonUser["category"]
 
@@ -40,6 +40,6 @@ def add_user(request):
         user_model.city = city
         user_model.address = address
         user_model.email = email
+        user_model.save()
         #user_model.category = category
-
     return django.http.HttpResponse(serializers.serialize("json", [user_model]))
