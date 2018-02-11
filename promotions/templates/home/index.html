@@ -8,6 +8,7 @@
     <!-- Latest compiled and minified CSS of slickJs 1.8.0 -->
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.0/slick.min.css"/>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.0/slick-theme.css"/>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300" rel="stylesheet"
     <!-- Latest compiled and minified Jquery library 3.3.1 -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <!-- Latest compiled and minified JavaScript of bootstrap 3.3.7-->
@@ -18,23 +19,13 @@
     <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
     <style>
         .slick-track {
-            height: 760px;
+            height: 460px; /*594*/
         }
         .slick-dots {
             bottom: 20px;
         }
-        #login-btn {
-            min-width: 340px;
-            padding: 20px;
-        }
-        #li-welcome {
-            padding-top: 14px;
-            color: #ffffff;
-            margin-right: 15px;
-        }
-        #li-username {
-            padding-top: 7px;
-            color: #ffffff;
+        .slick-dots {
+            bottom: -54px;
         }
         .slick-dots li button {
           display: block;
@@ -53,6 +44,40 @@
         .slick-dotted.slick-slider {
             margin-bottom: 0;
         }
+        .slider-docks{
+            background-color: #e1e1e1;
+            height: 90px;
+            border-bottom: 1px solid #FFFFFF;
+        }
+
+        #login-btn {
+            min-width: 340px;
+            padding: 20px;
+        }
+        #li-welcome {
+            padding-top: 14px;
+            color: #ffffff;
+            margin-right: 15px;
+        }
+        #li-username {
+            padding-top: 7px;
+            color: #ffffff;
+        }
+
+        .title-page{
+            background-image: -moz-linear-gradient(top, #e5e5e5, white 50%);
+            background-image: -webkit-linear-gradient(top, #e5e5e5 0, white 50%);
+            background-image: linear, to bottom, #e5e5e5 0, white 50%;
+            background-repeat: repeat-x;
+        }
+        .continer-title-page {
+            font-family: 'Open Sans', sans-serif;
+            padding-top: 40px;
+            color: #969696;
+        }
+        .filters {
+            padding-top: 15px;
+        }
         .panel-promotion {
             margin-bottom: 20px;
             background-color: #B680CE;
@@ -61,6 +86,9 @@
             -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
             box-shadow: 0 1px 1px rgba(0,0,0,.05);
             height: 260px;
+            border-radius: 4px;
+            overflow: hidden;
+            cursor: pointer;
         }
         .promotion-information{
             position: absolute;
@@ -76,11 +104,13 @@
         .promotion-cost {
             font-size: 18px;
             color: #FFFFFF;
+            text-align: right;
         }
         .promotion-description {
             font-size: 16px;
             color: #765486;
             font-weight: 700;
+            text-align: right;
         }
         .btn-show-promotion {
             color: #b581ce;
@@ -89,13 +119,23 @@
         }
         .container-image{
             position: absolute;
-            top: 4px;
-            right: 0px;
+            top: 77px;
+            left: -68px;
             max-width: 318px;
             width: 100%;
             overflow: hidden;
             height: 234px;
-            z-index: 1;
+            z-index: 0;
+        }
+        .show-promotion-container {
+            position: relative;
+            height: 248px;
+        }
+        .show-promotion-text {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            color: #FFFFFF;
         }
         .relative-container {
             position: relative;
@@ -108,23 +148,33 @@
             background-color: #FFFFFF;
             transform: rotate(-18deg);
             top: 81px;
-            left: 43px;
+            left: 0;
             padding: 10px;
         }
         footer {
-            background-color: #303437;
+            background-color: #EEEEEE;
             height: 300px;
             width: 100%;
             padding: 60px 40px;
-            color: #FFFFFF;
+            color: #606060;
+        }
+        /***************************************************************/
+        /* Estilos de la modal de las promociones */
+        /********************/
+        .img-modal-promotion{
+            height: 238px;
+            overflow: hidden;
+        }
+        .img-modal-promotion img {
+            width: 100%;
+            height: auto;
         }
     </style>
 </head>
 <body>
-
     <header >
         <nav class="navbar navbar-inverse" style="margin-bottom: 0;border-radius: 0;">
-            <div class="container-fluid" style="padding-left: 40px; padding-right: 40px;">
+            <div class="container scontainer-fluid" style="padding-left: 40px; padding-right: 40px;">
                 <div class="navbar-header">
                     <button type="button" class="collapsed navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-3" aria-expanded="false">
                         <span class="sr-only">Toggle navigation</span>
@@ -147,12 +197,14 @@
                                     <span class="btn-username"></span> <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li><a href="#">Action</a></li>
-                                    <li><a href="#">Another action</a></li>
-                                    <li><a href="#">Something else here</a></li>
+                                    <li><a href="#">Menu de usuario:</a></li>
                                     <li role="separator" class="divider"></li>
-                                    <li>
-                                        <button id="btn-logout" class="btn btn-danger btn-block" type="submit">Logout</button>
+                                    <li><a href="http://127.0.0.1:8000/profile/">Profile</a></li>
+                                    <li><a href="#">Promociones</a></li>
+                                    <li><a href="#">Categorías</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li style="padding: 10px;">
+                                        <button id="btn-logout" class="btn btn-danger btn-block" type="submit">Sing out <i class="fas fa-sign-out-alt"></i></button>
                                     </li>
                                 </ul>
                             </div>
@@ -207,16 +259,18 @@
             <div><img style="width: 100%;" src="http://www.kimberley.co.za/wp-content/uploads/2017/06/29621_Fish_Aways-Hash_Brown_Burger_Special-PM-201706.jpg" alt="image html5 ejemplo"></div>
         </div>
     </header>
-
-
-    <nav class="navbar navbar-inverse" style="padding-top: 7px;border-radius: 0;">
-        <div class="container-fluid" style="padding-right: 40px; padding-left: 40px;">
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <div class="row">
-                    <div class="col-md-2">
-                        <div class="input-group">
+    <nav>
+        <div class="slider-docks"></div>
+    </nav>
+    <article class="title-page">
+        <div class="continer-title-page container">
+            <h2 style="margin-top: 0; text-align: center;"> CPromotion Icreíbles Promociones </h2>
+            <p style="padding-top: 25px; text-align: center; font-size: 14px;">Cpromotion es una página web que te permitirá encontrar las mejores promciones de tu ciudad a un solo click, busca por categorías y por ciudades de Colombia para encontrar la promocion en tus artículos deseados.</p>
+            <div class="filters row">
+                <div class="col-md-offset-2 col-md-4">
+                    <div class="input-group">
                             <div class="input-group-btn">
-                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Ciudad <span class="caret"></span></button>
+                                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Ciudad <span class="caret"></span></button>
                                 <ul class="dropdown-menu">
                                     <li><a href="#">Ciudad</a></li>
                                     <li><a href="#">Another action</a></li>
@@ -227,13 +281,13 @@
                             </div><!-- /btn-group -->
                             <input type="text" class="form-control" aria-label="...">
                         </div><!-- /input-group -->
-                    </div>
-                    <div class="col-md-2">
-                        <div class="input-group">
+                </div>
+                <div class="col-md-4">
+                    <div class="input-group">
                             <div class="input-group-btn">
-                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categoría <span class="caret"></span></button>
+                                <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categoría <span class="caret"></span></button>
                                 <ul class="dropdown-menu">
-                                    <li><a href="#">Categoría</a></li>
+                                    <li><a href="#">Ciudad</a></li>
                                     <li><a href="#">Another action</a></li>
                                     <li><a href="#">Something else here</a></li>
                                     <li role="separator" class="divider"></li>
@@ -242,65 +296,64 @@
                             </div><!-- /btn-group -->
                             <input type="text" class="form-control" aria-label="...">
                         </div><!-- /input-group -->
-                    </div>
                 </div>
-
             </div>
+            <hr class="container" style="margin: 40px; border-top: 1px solid #e0e0e0;">
+            <section class="container">
+                <div class="promotion-container container-fluid">
+                    <div id="promotions" class="row"></div>
+                </div>
+                <div class="pagination" style="text-align: center; padding: 0 20px; width: 100%;">
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination">
+                            <li>
+                                <a href="#" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li><a href="#">1</a></li>
+                            <li><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li><a href="#">4</a></li>
+                            <li><a href="#">5</a></li>
+                            <li>
+                                <a href="#" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </section>
         </div>
-    </nav>
-
-    <section style="padding: 0 20px;">
-        <div class="promotion-container container-fluid">
-            <div id="promotions" class="row"></div>
-        </div>
-        <div class="pagination" style="text-align: center; padding: 0 20px; width: 100%;">
-            <nav aria-label="Page navigation">
-                <ul class="pagination">
-                    <li>
-                        <a href="#" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                        </a>
-                    </li>
-                    <li><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-                    <li>
-                        <a href="#" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-    </section>
+    </article>
 
     <footer>
-        <div class="row">
-            <div class="col-md-4">
-                <h3 style="font-weight: bold;margin-top: -5px;">Titulo</h3>
-                <p>Information</p>
-                <p>Find here</p>
-                <p>Last Promotion</p>
-                <p>Category</p>
-                <p>City</p>
-            </div>
-            <div class="col-md-4" style="text-align: center">
-                <p>cPromotion - Bogotá | 2018 | All rights reserved</p>
-                <p>Street 21 Ave 24A - 73</p>
-                <p>cpromotion@email.com</p>
-            </div>
-            <div class="col-md-4" style="text-align: right;margin-top: -5px;">
-                <h3 style="font-weight: bold";>Social links</h3>
-                <p><i class="fab fa-facebook-square"></i> facebook/asdasdasd </p>
-                <p><i class="fab fa-youtube"></i> youtube/asdasdsa</p>
-                <p><i class="fab fa-twitter"></i> twitter/asdasdasd</p>
-                <p><i class="fab fa-linkedin"></i> linkedin/asdasdsa</p>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h3 style="font-weight: bold;margin-top: -5px;">Titulo</h3>
+                    <p>Information</p>
+                    <p>Find here</p>
+                    <p>Last Promotion</p>
+                    <p>Category</p>
+                    <p>City</p>
+                </div>
+                <div class="col-md-4" style="text-align: center">
+                    <p>cPromotion - Bogotá | 2018 | All rights reserved</p>
+                    <p>Street 21 Ave 24A - 73</p>
+                    <p>cpromotion@email.com</p>
+                </div>
+                <div class="col-md-4" style="text-align: right;margin-top: -5px;">
+                    <h3 style="font-weight: bold";>Social links</h3>
+                    <p><i class="fab fa-facebook-square"></i> facebook/asdasdasd </p>
+                    <p><i class="fab fa-youtube"></i> youtube/asdasdsa</p>
+                    <p><i class="fab fa-twitter"></i> twitter/asdasdasd</p>
+                    <p><i class="fab fa-linkedin"></i> linkedin/asdasdsa</p>
+                </div>
             </div>
         </div>
     </footer>
-
     <section id="modal-promotion"></section>
     <section id="modal-register">
         <div class="modal fade modal-register" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog">
@@ -370,7 +423,6 @@
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
     </section>
-
     <script type="text/javascript">
         $(document).ready(function () {
 
@@ -379,7 +431,7 @@
             // ==============================================================================================
             var getData;
 
-            $.getJSON("https://cpromotion.herokuapp.com/list_promotion").done(function(data){
+            $.getJSON("http://127.0.0.1:8000/list_promotion").done(function(data){
                 getData = data;
                 var colorCtr = 0;
                 console.log(getData);
@@ -407,15 +459,15 @@
 
                     $("#promotions").append(
                         "<div class='col-md-4'>" +
-                            "<div class='panel panel-default panel-promotion' style='background-color:"+ promotion_background  +"';>" +
+                            "<div id='promotion"+ getData[i].pk +"' class='panel panel-default panel-promotion modal-promotion' style='background-color:"+ promotion_background  +"';>" +
                                 "<div class='panel-body' style='padding: 5px 15px;'>" +
                                     "<div class='container-img-cost' style='position: relative'>" +
                                         "<div class='promotion-information'>" +
                                             "<h2 class='promotion-title'>" + fields.promotion_name + "</h2>" +
                                             "<p class='promotion-cost'> $" + fields.cost + "</p>" +
-                                            "<p class='promotion-description' style='color:"+ promotion_description +";'>" + fields.description + "</p>" +
-                                            "<button id='promotion"+ getData[i].pk +"' class='modal-promotion' type='button' class='btn btn-md default btn-show-promotion' style='color:"+ promotion_background +";'>Ver promoción</button>" +
+                                            "<p id='promotion-description"+getData[i].pk+"' class='promotion-description' style='color:"+ promotion_description +";'>" + fields.description + "</p>" +
                                         "</div>" +
+                                        "<div class='show-promotion-container'><div class='show-promotion-text'>Ver promoción</div></div>"+
                                         "<div class='container-image'>" +
                                             "<div class='relative-container'>" +
                                                 "<div class='rotate-container'>" +
@@ -430,11 +482,14 @@
                     );
                     colorCtr++;
                     if(colorCtr === 4) { colorCtr = 0; }
-
+                    var getPromoDescription = $("#promotion-description"+getData[i].pk).text().substring(0, 56);
+                    console.log(getPromoDescription);
+                    $("#promotion-description"+getData[i].pk).html("").append(getPromoDescription+"...");
                 }
             }).fail(function (jqxhr, textStatus, error) {
                 var err = textStatus + ", " + error;
             });
+
             // ==============================================================================================
             // Promotion Modal controller
             // ==============================================================================================
@@ -442,22 +497,56 @@
                 e.preventDefault();
                 var promotionId = $(this).attr("id");
                 var splitId = promotionId.split("n");
-                $.getJSON("https://cpromotion.herokuapp.com/list_promotion").done(function(data){
+                $.getJSON("http://127.0.0.1:8000/list_promotion").done(function(data){
                     var promotionData = data;
-
+                    // ======================================================================================
+                    // Recorre el json para buscar cual es la promocion a consultar
                     for(var i=0; i<promotionData.length; i++){
                         var getId = promotionData[i].pk;
                         if( parseInt(getId) === parseInt(splitId[1])){
-                            console.log(getId.fields);
+                            console.log(promotionData[i].fields);
+                            // ==============================================================================
+                            // Imprimime la promocion selecionada con sus propiedades
                             $("#modal-promotion").html("").append(
                                 "<div class='modal fade modal-box' data-backdrop='static' data-keyboard='false' tabindex='-1' role='dialog'>" +
-                                    "<div class='modal-dialog' role='document'>" +
+                                    "<div class='modal-dialog modal-lg' role='document'>" +
                                         "<div class='modal-content'>" +
                                             "<div class='modal-header'>" +
                                                 "<button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</span></button>" +
-                                                "<h4 class='modal-title'>Modal title</h4>" +
+                                                "<h4 class='modal-title'>"+ promotionData[i].fields.promotion_name+"</h4>" +
                                             "</div>" +
                                             "<div class='modal-body'>" +
+
+                                                "<div class='panel panel-default'>" +
+                                                    "<div class='panel-body'> " +
+                                                        "<div class='row'>" +
+                                                            "<div class='col-md-6'>" +
+                                                                "<div class='img-modal-promotion'>"+
+                                                                    "<img src='"+ promotionData[i].fields.image +"' alt='Smiley face' height='42' width='42'>" +
+                                                                "</div>"+
+                                                            "</div>" +
+                                                            "<div class='col-md-6'>" +
+                                                                "<div class='panel panel-default'>" +
+                                                                    "<div class='panel-body'> " +
+                                                                        "<div class='promo-detail'><h4>Detalle de la promoción</h4></div>" +
+                                                                        "<hr style='margin: 5px 0;'>" +
+                                                                        "<div class='promo-cost row'><div class='col-md-4'><b>Valor:</b></div><div class='col-md-8'>"+ promotionData[i].fields.cost + "</div></div>" +
+                                                                        "<div class='promo-city row'><div class='col-md-4'><b>ciudad:</b></div><div class='col-md-8'>"+ promotionData[i].fields.city + "</div></div>" +
+                                                                        "<div class='promo-cost row'><div class='col-md-4'><b>Finaliza:</b></div><div class='col-md-8'>"+ promotionData[i].fields.end_date + "</div></div>" +
+                                                                        "<div class='promo-description'><b>Descripción:</b>" +
+                                                                            "<hr style='margin: 5px 0;'>" +
+                                                                            "<div class='text-promo-description'>" +
+                                                                                promotionData[i].fields.description +
+                                                                            "</div>" +
+                                                                        "</div>" +
+                                                                    "</div>" +
+                                                                "</div>" +
+                                                            "</div>" +
+                                                        "</div>" +
+                                                    "</div>" +
+                                                "</div>" +
+
+
                                                 "<p>One fine body&hellip;</p>" +
                                             "</div>" +
                                             "<div class='modal-footer'>" +
@@ -471,7 +560,6 @@
 
                             $(".modal-box").modal('show');
 
-                            console.log(getId + "esta es la promocion escogida");
                         }
                     }
 
@@ -494,7 +582,7 @@
                 } else {
                     $.ajax({
                         type: "POST",
-                        url: "https://cpromotion.herokuapp.com/register_users/",
+                        url: "http://127.0.0.1:8000/register_users/",
                         data: JSON.stringify({
                             first_name: $("#register-name").val(),
                             last_name: $("#register-last-name").val(),
@@ -509,7 +597,7 @@
                         dataType: "json",
                         success: function(data){
                             console.log(data);
-                            window.location.href = "https://cpromotion.herokuapp.com/";
+                            window.location.href = "http://127.0.0.1:8000/";
                         },
                         failure: function(errMessage){
                             console.log("Error enviando datos de registro");
@@ -528,7 +616,7 @@
                 e.preventDefault();
                 $.ajax({
                     type: "POST",
-                    url: "https://cpromotion.herokuapp.com/login_users/",
+                    url: "http://127.0.0.1:8000/login_users/",
                     data: JSON.stringify({
                         username: $("#login-username").val(),
                         password: $("#login-password").val()
@@ -537,7 +625,7 @@
                     dataType: "json",
                     success: function(data){
                         if(data.message === "ok"){
-                            window.location.href = "https://cpromotion.herokuapp.com/";
+                            window.location.href = "http://127.0.0.1:8000/";
                         } else {
                             console.log(data.message); // rear el texto para mostrar el retorno
                         }
@@ -553,9 +641,9 @@
             // ==============================================================================================
             $("#btn-logout").on("click", function(e){
                e.preventDefault();
-               $.getJSON("https://cpromotion.herokuapp.com/logout_users/").done(function(data){
+               $.getJSON("http://127.0.0.1:8000/logout_users/").done(function(data){
                     if( data.message === "ok"){
-                        window.location.href = "https://cpromotion.herokuapp.com/";
+                        window.location.href = "http://127.0.0.1:8000/";
                     } else {
                         console.log("Error al cerrar sesion");
                     }
@@ -567,7 +655,7 @@
             // Is auth controller
             // ==============================================================================================
             (function (){
-                $.getJSON("https://cpromotion.herokuapp.com/logged_users/").done(function(data){
+                $.getJSON("http://127.0.0.1:8000/logged_users/").done(function(data){
                     if( data.message === "logged"){
                         $("#li-login, #li-register").css("display", "none");
                         $("#li-welcome, #li-username").css("display", "block");

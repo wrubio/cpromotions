@@ -21,6 +21,10 @@ def home(request):
     return render(request, "home/index.html")
 
 
+def profile(request):
+    return render(request, "profile/index.html")
+
+
 @csrf_exempt
 def add_user(request):
     if request.method == 'POST':
