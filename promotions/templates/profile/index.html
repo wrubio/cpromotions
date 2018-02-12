@@ -61,7 +61,7 @@
                     </a>
                 </div>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="https://cpromotion.herokuapp.com/">Regresar a cPromotion</a></li>
+                    <li><a href="http://127.0.0.1:8000/">Regresar a cPromotion</a></li>
                     <li><a id="profile-logout" href="#">Singout <i class="fas fa-sign-out-alt"></i></a></li>
                 </ul>
             </div>
@@ -75,10 +75,10 @@
                         <div class="panel panel-default">
                             <div class="panel-body">
                                 <div class="user-image">
-                                    <img src="https://pbs.twimg.com/profile_images/791340693222461441/Q0LAd5lY.jpg" alt="Ejemplo borrar">
+                                    <img src="" alt="Ejemplo borrar">
                                 </div>
                                 <div class="user-name">
-                                    <h4>User Name</h4>
+                                    <h4 id="get-username-profile" >User Name</h4>
                                 </div>
                             </div>
                         </div>
@@ -94,7 +94,7 @@
                             <div class="panel-body">
                                 <div class="form-group" style="overflow: hidden;">
                                     <label for="uploadImage">Subir imagen:</label>
-                                    <input type="file" id="exampleInputFile">
+                                    <input type="file" id="image-profile">
                                     <p class="help-block">Example block-level help text here.</p>
                                 </div>
                             </div>
@@ -176,7 +176,7 @@
                                 <div class="row">
                                     <div class="col-md-offset-4 col-md-8" style="text-align: right;">
                                         <button type="button" class="btn btn-success"><i class="fas fa-edit"></i> Editar</button>
-                                        <button type="submit" class="btn btn-danger"><i class="fas fa-save"></i> Enviar</button>
+                                        <button id="btn-edit-profile" type="submit" class="btn btn-danger"><i class="fas fa-save"></i> Enviar</button>
                                     </div>
                                 </div>
                             </div>
@@ -188,15 +188,37 @@
     </article>
     <footer></footer>
     <script type="text/javascript">
-
+            $("#btn-edit-profile").on("click", function(e){
+                e.preventDefault();
+                console.log($("#username-profile").val(),$("#country-profile").val(),$("#city-profile").val(),$("#address-profile").val());
+                $.ajax({
+                    type: "POST",
+                    url: "http://127.0.0.1:8000/edit_profile/",
+                    data: JSON.stringify({
+                        username: $("#username-profile").val(),
+                        country: $("#country-profile").val(),
+                        city: $("#city-profile").val(),
+                        address: $("#address-profile").val()
+                    }),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function(data){
+                        console.log(data);
+                        window.location.href = "http://127.0.0.1:8000/profile/";
+                    },
+                    failure: function(errMessage){
+                        console.log("Error enviando datos de registro");
+                    }
+                });
+            });
             // ==============================================================================================
             // Logout controller
             // ==============================================================================================
             $("#profile-logout").on("click", function(e){
                e.preventDefault();
-               $.getJSON("https://cpromotion.herokuapp.com/logout_users/").done(function(data){
+               $.getJSON("http://127.0.0.1:8000/logout_users/").done(function(data){
                     if( data.message === "ok"){
-                        window.location.href = "https://cpromotion.herokuapp.com/";
+                        window.location.href = "http://127.0.0.1:8000/";
                     } else {
                         console.log("Error al cerrar sesion");
                     }
@@ -208,11 +230,11 @@
             // Is auth controller
             // ==============================================================================================
             (function (){
-                $.getJSON("https://cpromotion.herokuapp.com/logged_users/").done(function(data){
+                $.getJSON("http://127.0.0.1:8000/logged_users/").done(function(data){
                     if( data.message === "logged"){
                         $("#li-login, #li-register").css("display", "none");
                         $("#li-welcome, #li-username").css("display", "block");
-                        $(".btn-username").html("").append(data.username);
+                        $("#get-username-profile").html("").append(data.username);
                     } else {
                         $("#li-login, #li-register").css("display", "block");
                         $("#li-welcome, #li-username").css("display", "none");

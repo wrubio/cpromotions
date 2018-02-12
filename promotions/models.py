@@ -20,7 +20,7 @@ class Promotion(models.Model):
     initial_date = models.DateTimeField(auto_now_add=False)
     end_date = models.DateTimeField(auto_now_add=False)
     city = models.CharField(max_length=20)
-    cost = models.DecimalField(max_digits=2, decimal_places=2)
+    cost = models.DecimalField(max_digits=10, decimal_places=3)
     description = models.CharField(max_length=300)
     image = models.CharField(max_length=600)
     state = models.BooleanField(default=True)
@@ -44,11 +44,11 @@ class Favorite(models.Model):
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, null=True, blank=True, on_delete=models.CASCADE)
-    image = models.CharField(max_length=600)
+    image = models.ImageField(upload_to='static/images/profile', null=True)
     country = models.CharField(max_length=50)
     city = models.CharField(max_length=50)
     address = models.CharField(max_length=50)
-    category = models.CharField(max_length=100)
+    category = models.CharField(max_length=100, null=True)
 
     def __unicode__(self):
         return u'{}'.format(self.user)
@@ -84,3 +84,9 @@ class UserRegister(ModelForm):
         if password != confirm_password:
             raise forms.ValidationError("Las contraseñas no coinciden")
         return password
+
+
+class ProfileForm(ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ("country", "city", "address")

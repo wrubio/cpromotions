@@ -1,7 +1,7 @@
 import django.conf.urls
 
 from . import views
-from .views import list_promotion, add_user, login_user, logout_user, user_logged, profile
+from .views import list_promotion
 
 urlpatterns = [
     django.conf.urls.url(r'^$', views.home, name='home'),
@@ -11,4 +11,5 @@ urlpatterns = [
     django.conf.urls.url(r'^logout_users/$', views.logout_user, name='logout_users'),
     django.conf.urls.url(r'^logged_users/$', views.user_logged, name='logged_users'),
     django.conf.urls.url(r'^profile/$', views.profile, name='profile'),
+    django.conf.urls.url(r'^edit_profile/$', views.edit_profile, name='edit_profile'),
 ]
