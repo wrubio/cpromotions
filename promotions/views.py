@@ -32,7 +32,7 @@ def edit_profile(request):
     if request.method == 'POST':
         jsonProfile = json.loads(request.body)
         get_user = jsonProfile['username']
-        get_profile = UserProfile.objects.
+        get_profile = UserProfile.objects.filter(user=get_user)
     return JsonResponse(get_profile)
 
     """

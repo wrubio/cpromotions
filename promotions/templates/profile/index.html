@@ -61,7 +61,7 @@
                     </a>
                 </div>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="http://127.0.0.1:8000/">Regresar a cPromotion</a></li>
+                    <li><a href="https://cpromotion.herokuapp.com/">Regresar a cPromotion</a></li>
                     <li><a id="profile-logout" href="#">Singout <i class="fas fa-sign-out-alt"></i></a></li>
                 </ul>
             </div>
@@ -193,7 +193,7 @@
                 console.log($("#username-profile").val(),$("#country-profile").val(),$("#city-profile").val(),$("#address-profile").val());
                 $.ajax({
                     type: "POST",
-                    url: "http://127.0.0.1:8000/edit_profile/",
+                    url: "https://cpromotion.herokuapp.com/edit_profile/",
                     data: JSON.stringify({
                         username: $("#username-profile").val(),
                         country: $("#country-profile").val(),
@@ -204,7 +204,7 @@
                     dataType: "json",
                     success: function(data){
                         console.log(data);
-                        window.location.href = "http://127.0.0.1:8000/profile/";
+                        window.location.href = "https://cpromotion.herokuapp.com/profile/";
                     },
                     failure: function(errMessage){
                         console.log("Error enviando datos de registro");
@@ -216,9 +216,9 @@
             // ==============================================================================================
             $("#profile-logout").on("click", function(e){
                e.preventDefault();
-               $.getJSON("http://127.0.0.1:8000/logout_users/").done(function(data){
+               $.getJSON("https://cpromotion.herokuapp.com/logout_users/").done(function(data){
                     if( data.message === "ok"){
-                        window.location.href = "http://127.0.0.1:8000/";
+                        window.location.href = "https://cpromotion.herokuapp.com/";
                     } else {
                         console.log("Error al cerrar sesion");
                     }
@@ -230,7 +230,7 @@
             // Is auth controller
             // ==============================================================================================
             (function (){
-                $.getJSON("http://127.0.0.1:8000/logged_users/").done(function(data){
+                $.getJSON("https://cpromotion.herokuapp.com/logged_users/").done(function(data){
                     if( data.message === "logged"){
                         $("#li-login, #li-register").css("display", "none");
                         $("#li-welcome, #li-username").css("display", "block");
