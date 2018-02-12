@@ -582,7 +582,7 @@
                 } else {
                     $.ajax({
                         type: "POST",
-                        url: "http://127.0.0.1:8000/register_users/",
+                        url: "https://cpromotion.herokuapp.com/register_users/",
                         data: JSON.stringify({
                             first_name: $("#register-name").val(),
                             last_name: $("#register-last-name").val(),
@@ -597,7 +597,7 @@
                         dataType: "json",
                         success: function(data){
                             console.log(data);
-                            window.location.href = "http://127.0.0.1:8000/";
+                            window.location.href = "https://cpromotion.herokuapp.com/";
                         },
                         failure: function(errMessage){
                             console.log("Error enviando datos de registro");
@@ -616,7 +616,7 @@
                 e.preventDefault();
                 $.ajax({
                     type: "POST",
-                    url: "http://127.0.0.1:8000/login_users/",
+                    url: "https://cpromotion.herokuapp.com/login_users/",
                     data: JSON.stringify({
                         username: $("#login-username").val(),
                         password: $("#login-password").val()
@@ -625,7 +625,7 @@
                     dataType: "json",
                     success: function(data){
                         if(data.message === "ok"){
-                            window.location.href = "http://127.0.0.1:8000/";
+                            window.location.href = "https://cpromotion.herokuapp.com/";
                         } else {
                             console.log(data.message); // rear el texto para mostrar el retorno
                         }
@@ -641,9 +641,9 @@
             // ==============================================================================================
             $("#btn-logout").on("click", function(e){
                e.preventDefault();
-               $.getJSON("http://127.0.0.1:8000/logout_users/").done(function(data){
+               $.getJSON("https://cpromotion.herokuapp.com/logout_users/").done(function(data){
                     if( data.message === "ok"){
-                        window.location.href = "http://127.0.0.1:8000/";
+                        window.location.href = "https://cpromotion.herokuapp.com/";
                     } else {
                         console.log("Error al cerrar sesion");
                     }
@@ -655,7 +655,7 @@
             // Is auth controller
             // ==============================================================================================
             (function (){
-                $.getJSON("http://127.0.0.1:8000/logged_users/").done(function(data){
+                $.getJSON("https://cpromotion.herokuapp.com/logged_users/").done(function(data){
                     if( data.message === "logged"){
                         $("#li-login, #li-register").css("display", "none");
                         $("#li-welcome, #li-username").css("display", "block");
