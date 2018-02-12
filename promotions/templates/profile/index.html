@@ -62,7 +62,7 @@
                 </div>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="https://cpromotion.herokuapp.com/">Regresar a cPromotion</a></li>
-                    <li><a href="#">Singout <i class="fas fa-sign-out-alt"></i></a></li>
+                    <li><a id="profile-logout" href="#">Singout <i class="fas fa-sign-out-alt"></i></a></li>
                 </ul>
             </div>
         </nav>
@@ -186,5 +186,41 @@
             </form>
         </div>
     </article>
+    <footer></footer>
+    <script type="text/javascript">
+
+            // ==============================================================================================
+            // Logout controller
+            // ==============================================================================================
+            $("#profile-logout").on("click", function(e){
+               e.preventDefault();
+               $.getJSON("https://cpromotion.herokuapp.com/logout_users/").done(function(data){
+                    if( data.message === "ok"){
+                        window.location.href = "https://cpromotion.herokuapp.com/";
+                    } else {
+                        console.log("Error al cerrar sesion");
+                    }
+               }).fail(function(jqxhr, textStatus, error) {
+                    var err = textStatus + ", " + error;
+                });
+            });
+            // ==============================================================================================
+            // Is auth controller
+            // ==============================================================================================
+            (function (){
+                $.getJSON("https://cpromotion.herokuapp.com/logged_users/").done(function(data){
+                    if( data.message === "logged"){
+                        $("#li-login, #li-register").css("display", "none");
+                        $("#li-welcome, #li-username").css("display", "block");
+                        $(".btn-username").html("").append(data.username);
+                    } else {
+                        $("#li-login, #li-register").css("display", "block");
+                        $("#li-welcome, #li-username").css("display", "none");
+                    }
+                }).fail(function(jqxhr, textStatus, error) {
+                    var err = textStatus + ", " + error;
+                });
+            })();
+    </script>
 </body>
 </html>
