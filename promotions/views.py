@@ -16,11 +16,11 @@ def list_promotion(request):
     promotions = serializers.serialize('json', models.Promotion.objects.all())
     return HttpResponse(promotions, content_type='application/json')
 
-
+@csrf_exempt
 def home(request):
     return render(request, "home/index.html")
 
-
+@csrf_exempt
 def profile(request):
     return render(request, "profile/index.html")
 
