@@ -4,10 +4,10 @@ from django.http import HttpResponse, JsonResponse
 from django.core import serializers
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate, login, logout
-
-from promotions.models import UserProfile
-from . import models
 from django.contrib.auth.models import User
+
+from promotions.models import UserProfile, ProfileForm
+from . import models
 
 
 # Create your views here.
@@ -16,14 +16,32 @@ def list_promotion(request):
     promotions = serializers.serialize('json', models.Promotion.objects.all())
     return HttpResponse(promotions, content_type='application/json')
 
+
 @csrf_exempt
 def home(request):
     return render(request, "home/index.html")
+
 
 @csrf_exempt
 def profile(request):
     return render(request, "profile/index.html")
 
+
+@csrf_exempt
+def edit_profile(request):
+    if request.method == 'POST':
+        jsonProfile = json.loads(request.body)
+        get_user = jsonProfile['username']
+        get_profile = UserProfile.objects.
+    return JsonResponse(get_profile)
+
+    """
+    user_id = UserProfile.objects.get(pk=pk)
+    if request.method == 'POST':
+        form_edit = ProfileForm(request.POST, instance=user_id)
+        form_edit.save()
+    return HttpResponse(serializers.serialize('json', [form_edit]))
+    """
 
 @csrf_exempt
 def add_user(request):
