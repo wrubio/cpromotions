@@ -8,7 +8,8 @@
     <!-- Latest compiled and minified CSS of slickJs 1.8.0 -->
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.0/slick.min.css"/>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.0/slick-theme.css"/>
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300" rel="stylesheet"
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
     <!-- Latest compiled and minified Jquery library 3.3.1 -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <!-- Latest compiled and minified JavaScript of bootstrap 3.3.7-->
@@ -61,7 +62,7 @@
                     </a>
                 </div>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="https://cpromotion.herokuapp.com/">Regresar a cPromotion</a></li>
+                    <li><a href="http://127.0.0.1:8000/">Regresar a cPromotion</a></li>
                     <li><a id="profile-logout" href="#">Singout <i class="fas fa-sign-out-alt"></i></a></li>
                 </ul>
             </div>
@@ -69,7 +70,7 @@
     </header>
     <article>
         <div class="container img-name-container">
-            <form>
+            <form id="profile-form" action="http://127.0.0.1:8000/edit_profile/" enctype="multipart/form-data" method="POST">
                 <div class="row">
                     <div class="col-md-3">
                         <div class="panel panel-default">
@@ -86,7 +87,7 @@
                             <div class="panel-body">
                                 <div class="form-group">
                                     <label for="username">Username:</label>
-                                    <input type="text" class="form-control" id="username-profile" placeholder="Username">
+                                    <input name="username" type="text" class="form-control" id="username-profile" placeholder="Username">
                                 </div>
                             </div>
                         </div>
@@ -94,7 +95,7 @@
                             <div class="panel-body">
                                 <div class="form-group" style="overflow: hidden;">
                                     <label for="uploadImage">Subir imagen:</label>
-                                    <input type="file" id="image-profile">
+                                    <input name="image" type="file" id="image-profile">
                                     <p class="help-block">Example block-level help text here.</p>
                                 </div>
                             </div>
@@ -105,27 +106,27 @@
                             <div class="panel-body">
                                 <div class="form-group">
                                     <label for="nombre">Nombre:</label>
-                                    <input type="text" class="form-control" id="name-profile" placeholder="Nombre del usuario">
+                                    <input name="first_name" type="text" class="form-control" id="name-profile" placeholder="Nombre del usuario">
                                 </div>
                                 <div class="form-group">
                                     <label for="apellido">Apellido:</label>
-                                    <input type="text" class="form-control" id="last-name-profile" placeholder="Apellidos del usuario">
+                                    <input name="last_name" type="text" class="form-control" id="last-name-profile" placeholder="Apellidos del usuario">
                                 </div>
                                 <div class="form-group">
                                     <label for="email">Email:</label>
-                                    <input type="email" class="form-control" id="email-profile" placeholder="usuario@correo.com">
+                                    <input name="email" type="email" class="form-control" id="email-profile" placeholder="usuario@correo.com">
                                 </div>
                                 <div class="form-group">
                                     <label for="pais">Pais:</label>
-                                    <input type="text" class="form-control" id="country-profile" placeholder="Colombia">
+                                    <input name="country" type="text" class="form-control" id="country-profile" placeholder="Colombia">
                                 </div>
                                 <div class="form-group">
                                     <label for="ciudad">Ciudad:</label>
-                                    <input type="text" class="form-control" id="city-profile" placeholder="Ciudad">
+                                    <input name="city" type="text" class="form-control" id="city-profile" placeholder="Ciudad">
                                 </div>
                                 <div class="form-group">
                                     <label for="direccion">Dirección:</label>
-                                    <input type="text" class="form-control" id="address-profile" placeholder="Calle 42 No. 5-24">
+                                    <input name="address" type="text" class="form-control" id="address-profile" placeholder="Calle 42 No. 5-24">
                                 </div>
                             </div>
                         </div>
@@ -135,39 +136,20 @@
                             <div class="panel-body">
                                 <div class="form-group">
                                     <label for="password">Contraseña:</label>
-                                    <input type="password" class="form-control" id="password-profile" placeholder="Password">
+                                    <input name="password" type="password" class="form-control" id="password-profile" placeholder="Password">
                                 </div>
                                 <div class="form-group">
                                     <label for="confirmarContrasena">Confirmar Contraseña:</label>
-                                    <input type="password" class="form-control" id="confirm-password-profile" placeholder="Password">
+                                    <input name="confirm_password" type="password" class="form-control" id="confirm-password-profile" placeholder="Password">
                                 </div>
                             </div>
                         </div>
                         <div class="panel panel-default">
                             <div class="panel-body">
                                 <div class="form-group">
-                                    <label for="catgorias">Categorías:</label>
+                                    <label for="categorias">Categorías:</label>
                                     <hr>
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <input type="checkbox" id="inlineCheckbox1" value="option1"> Categoría
-                                        </div>
-                                        <div class="col-md-4">
-                                            <input type="checkbox" id="inlineCheckbox1" value="option1"> Categoría
-                                        </div>
-                                        <div class="col-md-4">
-                                            <input type="checkbox" id="inlineCheckbox1" value="option1"> Categoría
-                                        </div>
-                                        <div class="col-md-4">
-                                            <input type="checkbox" id="inlineCheckbox1" value="option1"> Categoría
-                                        </div>
-                                        <div class="col-md-4">
-                                            <input type="checkbox" id="inlineCheckbox1" value="option1"> Categoría
-                                        </div>
-                                        <div class="col-md-4">
-                                            <input type="checkbox" id="inlineCheckbox1" value="option1"> Categoría
-                                        </div>
-                                    </div>
+                                    <div id="category-profile" class="row"></div>
                                 </div>
                             </div>
                         </div>
@@ -188,23 +170,54 @@
     </article>
     <footer></footer>
     <script type="text/javascript">
+        $(document).ready(function(){
+            // ==============================================================================================
+            // Categories controller
+            // ==============================================================================================
+            var categorias;
+            var dataCategory = function(data){
+               categorias=data;
+               for(var ca=0; ca<categorias.length; ca++){
+                    $("#category-profile").append(
+                        "<div class='col-md-6'>" +
+                           "<input type='checkbox' class='register-category' value='"+categorias[ca].fields.name+"'>"+categorias[ca].fields.name +
+                        "</div>"
+                    )
+                }
+
+            };
+            $.getJSON("http://127.0.0.1:8000/list_category").done(function(data){
+                dataCategory(data);
+            });
+            // ==============================================================================================
+            // Edit profile controller
+            // ==============================================================================================
             $("#btn-edit-profile").on("click", function(e){
+                var formData = new FormData($("#profile-form")[0]);
+                console.log(formData);
                 e.preventDefault();
-                console.log($("#username-profile").val(),$("#country-profile").val(),$("#city-profile").val(),$("#address-profile").val());
+                var csrftoken = Cookies.get('csrftoken');
+                function csrfSafeMethod(method) {
+                    // these HTTP methods do not require CSRF protection
+                    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+                }
+                $.ajaxSetup({
+                    beforeSend: function(xhr, settings) {
+                        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                        }
+                    }
+                });
                 $.ajax({
                     type: "POST",
-                    url: "https://cpromotion.herokuapp.com/edit_profile/",
-                    data: JSON.stringify({
-                        username: $("#username-profile").val(),
-                        country: $("#country-profile").val(),
-                        city: $("#city-profile").val(),
-                        address: $("#address-profile").val()
-                    }),
-                    contentType: "application/json; charset=utf-8",
-                    dataType: "json",
+                    url: "http://127.0.0.1:8000/edit_profile/",
+                    data: formData,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
                     success: function(data){
                         console.log(data);
-                        window.location.href = "https://cpromotion.herokuapp.com/profile/";
+                        //window.location.href = "http://127.0.0.1:8000/profile/";
                     },
                     failure: function(errMessage){
                         console.log("Error enviando datos de registro");
@@ -216,9 +229,9 @@
             // ==============================================================================================
             $("#profile-logout").on("click", function(e){
                e.preventDefault();
-               $.getJSON("https://cpromotion.herokuapp.com/logout_users/").done(function(data){
+               $.getJSON("http://127.0.0.1:8000/logout_users/").done(function(data){
                     if( data.message === "ok"){
-                        window.location.href = "https://cpromotion.herokuapp.com/";
+                        window.location.href = "http://127.0.0.1:8000/";
                     } else {
                         console.log("Error al cerrar sesion");
                     }
@@ -230,11 +243,12 @@
             // Is auth controller
             // ==============================================================================================
             (function (){
-                $.getJSON("https://cpromotion.herokuapp.com/logged_users/").done(function(data){
+                $.getJSON("http://127.0.0.1:8000/logged_users/").done(function(data){
                     if( data.message === "logged"){
                         $("#li-login, #li-register").css("display", "none");
                         $("#li-welcome, #li-username").css("display", "block");
                         $("#get-username-profile").html("").append(data.username);
+                        console.log(data);
                     } else {
                         $("#li-login, #li-register").css("display", "block");
                         $("#li-welcome, #li-username").css("display", "none");
@@ -243,6 +257,8 @@
                     var err = textStatus + ", " + error;
                 });
             })();
+        });
+
     </script>
 </body>
 </html>

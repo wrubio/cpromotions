@@ -3,7 +3,6 @@ from __future__ import unicode_literals
 
 from django import forms
 from django.contrib.auth.models import User
-from django.forms import ModelForm
 from django.db import models
 
 
@@ -45,26 +44,17 @@ class Favorite(models.Model):
 class UserProfile(models.Model):
     user = models.OneToOneField(User, null=True, blank=True, on_delete=models.CASCADE)
     image = models.ImageField(upload_to='static/images/profile', null=True)
-    country = models.CharField(max_length=50)
-    city = models.CharField(max_length=50)
-    address = models.CharField(max_length=50)
+    imageUrl = models.CharField(max_length=50, null=True)
+    country = models.CharField(max_length=50, null=True)
+    city = models.CharField(max_length=50, null=True)
+    address = models.CharField(max_length=50, null=True)
     category = models.CharField(max_length=100, null=True)
 
-    def __unicode__(self):
-        return u'{}'.format(self.user)
 
-
-class UserRegister(ModelForm):
-    first_name = forms.CharField(max_length=100)
-    last_name = forms.CharField(max_length=100)
-    username = forms.CharField(max_length=30)
-    password = forms.CharField(max_length=30)
-    confirm_password = forms.CharField(max_length=30)
-    email = forms.CharField(max_length=50)
-
+class UserRegister(User):
     class Meta:
-        model = User
-        fields = ["first_name", "last_name", "username", "password", "confirm_password", "email"]
+        proxy = True
+        ordering = ("first_name",)
 
     def clean_username(self):
         username = self.cleaned_data['username']
@@ -86,7 +76,13 @@ class UserRegister(ModelForm):
         return password
 
 
-class ProfileForm(ModelForm):
+class UserForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('first_name', 'last_name', 'email', 'password', 'username')
+
+
+class ProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
-        fields = ("country", "city", "address")
+        fields = ('country', 'city', 'address', 'image')

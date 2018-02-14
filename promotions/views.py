@@ -1,12 +1,15 @@
 import json
-from django.shortcuts import render
+
+from django.contrib.auth.decorators import login_required
+from django.db import transaction
+from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from django.core import serializers
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 
-from promotions.models import UserProfile, ProfileForm
+from .models import ProfileForm, UserProfile
 from . import models
 
 
@@ -15,6 +18,11 @@ from . import models
 def list_promotion(request):
     promotions = serializers.serialize('json', models.Promotion.objects.all())
     return HttpResponse(promotions, content_type='application/json')
+
+@csrf_exempt
+def list_category(request):
+    category = serializers.serialize('json', models.Category.objects.all())
+    return HttpResponse(category, content_type='application/json')
 
 
 @csrf_exempt
@@ -27,21 +35,38 @@ def profile(request):
     return render(request, "profile/index.html")
 
 
-@csrf_exempt
-def edit_profile(request):
+@login_required
+@transaction.atomic
+def update_user_profile(request):
     if request.method == 'POST':
-        jsonProfile = json.loads(request.body)
-        get_user = jsonProfile['username']
-        get_profile = UserProfile.objects.filter(user=get_user)
-    return JsonResponse(get_profile)
+        current_user = request.user.userprofile.user
 
-    """
-    user_id = UserProfile.objects.get(pk=pk)
-    if request.method == 'POST':
-        form_edit = ProfileForm(request.POST, instance=user_id)
-        form_edit.save()
-    return HttpResponse(serializers.serialize('json', [form_edit]))
-    """
+        upload_image = UserProfile.objects.get(user=current_user)
+        upload_image.image=request.FILES['image']
+        upload_image.save()
+
+        user_profile = User.objects.filter(username=current_user)
+        user_profile.update(
+            username=request.POST['username'],
+            first_name=request.POST['first_name'],
+            last_name=request.POST['last_name'],
+            email=request.POST['email'],
+            password=request.POST['password'],
+        )
+
+        profile_edit = UserProfile.objects.filter(user=current_user)
+        profile_edit.update(
+            country=request.POST['country'],
+            city=request.POST['city'],
+            address=request.POST['address']
+        )
+        return JsonResponse({"message": "Usuario registrado"})
+    else:
+        current_user = request.user
+        message = "Usuario no registrado"
+        return JsonResponse({"message": current_user.userprofile.country})
+
+
 
 @csrf_exempt
 def add_user(request):
@@ -59,7 +84,7 @@ def add_user(request):
         user_model.email = email
         user_model.save()
         UserProfile.objects.create(user=user_model, country=jsonUser['country'], city=jsonUser['city'],
-                                   address=jsonUser['address'])
+                                   address=jsonUser['address'], category=jsonUser['category'])
 
     return HttpResponse(serializers.serialize("json", [user_model]))
 
@@ -90,9 +115,35 @@ def logout_user(request):
 def user_logged(request):
     if request.user.is_authenticated():
         message = "logged"
-        user = request.user.username
+        username = request.user.username
+        country = request.user.userprofile.country
+        city = request.user.userprofile.city
+        address = request.user.userprofile.address
+        category = request.user.userprofile.category
+        first_name = request.user.first_name
+        last_name = request.user.last_name
+        email = request.user.email
+
     else:
         message = "logout"
-        user = ""
+        username = ""
+        username = ""
+        country = ""
+        city = ""
+        address = ""
+        category = ""
+        first_name = ""
+        last_name = ""
+        email = ""
 
-    return JsonResponse({"message": message, "username": user})
+    return JsonResponse({
+        "message": message,
+        "username": username,
+        "first_name": first_name,
+        "last_name": last_name,
+        "email": email,
+        "country": country,
+        "city": city,
+        "address": address,
+        "category": category
+    })
