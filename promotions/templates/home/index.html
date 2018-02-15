@@ -8,7 +8,8 @@
     <!-- Latest compiled and minified CSS of slickJs 1.8.0 -->
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.0/slick.min.css"/>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.0/slick-theme.css"/>
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300" rel="stylesheet"
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
     <!-- Latest compiled and minified Jquery library 3.3.1 -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <!-- Latest compiled and minified JavaScript of bootstrap 3.3.7-->
@@ -171,6 +172,17 @@
         .img-modal-promotion img {
             width: 100%;
             height: auto;
+        }
+        .alert-logged-messsage {
+            display: none;
+        }
+        .div-send-commit {
+            margin-top: 15px;
+            text-align: right;
+        }
+        #created-message {
+            overflow-y: auto;
+            height: 250px
         }
     </style>
 </head>
@@ -357,8 +369,8 @@
             </div>
         </div>
     </footer>
-    <section id="modal-promotion"></section>
-    <section id="modal-register">
+    <article id="modal-promotion"></article>
+    <article id="modal-register">
         <div class="modal fade modal-register" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
@@ -433,9 +445,101 @@
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
-    </section>
+    </article>
     <script type="text/javascript">
         $(document).ready(function () {
+            // ==============================================================================================
+            // Add Message in promotion controller
+            // ==============================================================================================
+            (function($) {
+                var origAppend = $.fn.append;
+
+                $.fn.append = function () {
+                    return origAppend.apply(this, arguments).trigger("append");
+                };
+            })(jQuery);
+
+            $("#modal-promotion").on("click", "#btn-send-commit", function(e){
+                e.preventDefault();
+                var emailMessage = $("#email-message");
+                var textMessage = $("#text-message");
+                var promotion = $("#modal-promo-name").html();
+                if(emailMessage.val() === "" || textMessage.val() === ""){
+                    console.log("por favor agrega un correo");
+                } else {
+                    //Openiendo codigo csrf para el registro
+                    var csrftoken = Cookies.get('csrftoken');
+                    function csrfSafeMethod(method) {
+                        // these HTTP methods do not require CSRF protection
+                        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+                    }
+                    $.ajaxSetup({
+                        beforeSend: function(xhr, settings) {
+                            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                            }
+                        }
+                    });
+                    $.ajax({
+                        type: "POST",
+                        url: "https://cpromotion.herokuapp.com/add_message/",
+                        data: JSON.stringify({
+                            email: emailMessage.val(),
+                            message: textMessage.val(),
+                            promotion: promotion
+                        }),
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function(data){
+                            $("#created-message").prepend(
+                                "<div class='form-group'>" +
+                                    "<label for='exampleInputEmail1'>"+emailMessage.val()+": </label>" +
+                                    "<div class='promo-message-tittle'>"+textMessage.val()+"</div>" +
+                                "</div>" +
+                                "<hr>"
+                            );
+                            console.log(data);
+                        },
+                        failure: function(errMessage){
+                            console.log("Error enviando datos de registro");
+                        }
+                    });
+                }
+            });
+            // ==============================================================================================
+            // Show / hode message in promotion modal controller
+            // ==============================================================================================
+
+            $("#modal-promotion").one("append", function(){
+                $.getJSON("https://cpromotion.herokuapp.com/list_message").done(function(data) {
+                    console.log("entre");
+                    for( var pro=0; pro<data.length; pro++) {
+                        if(parseInt(data[pro].fields.promotion) === parseInt($("#modal-promo-name").attr("data-id"))){
+                            $("#created-message").prepend(
+                                "<div class='form-group'>" +
+                                    "<label for='exampleInputEmail1'>"+data[pro].fields.mail+": </label>" +
+                                    "<div class='promo-message-tittle'>"+data[pro].fields.message+"</div>" +
+                                "</div>"+
+                                "<hr>"
+                            );
+                        }
+                    }
+                });
+               $.getJSON("https://cpromotion.herokuapp.com/logged_users/").done(function(data){
+                    if( data.message === "logged"){
+                        $(".email-message").show();
+                        $(".text-message").show();
+                        $("#btn-send-commit").show();
+                    } else {
+                        $(".email-message").hide();
+                        $(".text-message").hide();
+                        $("#btn-send-commit").hide();
+                        $(".alert-logged-messsage").show();
+                    }
+                }).fail(function(jqxhr, textStatus, error) {
+                    var err = textStatus + ", " + error;
+               });
+            });
             // ==============================================================================================
             // Categories controller
             // ==============================================================================================
@@ -454,7 +558,6 @@
             $.getJSON("https://cpromotion.herokuapp.com/list_category").done(function(data){
                 dataCategory(data);
             });
-
             // ==============================================================================================
             // Promotion object creator controller
             // ==============================================================================================
@@ -525,7 +628,6 @@
 
                 $.getJSON("https://cpromotion.herokuapp.com/list_promotion").done(function(data){
                     var promotionData = data;
-                    console.log(categorias);
                     // ======================================================================================
                     // Recorre el json para buscar cual es la promocion a consultar
                     for(var i=0; i<promotionData.length; i++){
@@ -537,7 +639,6 @@
                             }
                         }
                         if( parseInt(getId) === parseInt(splitId[1])){
-                            console.log(promotionData[i].fields);
                             // ==============================================================================
                             // Imprimime la promocion selecionada con sus propiedades
                             $("#modal-promotion").html("").append(
@@ -546,7 +647,7 @@
                                         "<div class='modal-content'>" +
                                             "<div class='modal-header'>" +
                                                 "<button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</span></button>" +
-                                                "<h4 class='modal-title'>"+ promotionData[i].fields.promotion_name+"</h4>" +
+                                                "<h4 id='modal-promo-name' class='modal-title' data-id='"+ promotionData[i].pk +"'>"+ promotionData[i].fields.promotion_name+"</h4>" +
                                             "</div>" +
                                             "<div class='modal-body'>" +
 
@@ -559,15 +660,15 @@
                                                                 "</div>"+
                                                             "</div>" +
                                                             "<div class='col-md-6'>" +
-                                                                "<div class='panel panel-default'>" +
+                                                                "<div class='panel panel-default' style='background-color: #efefef;'>" +
                                                                     "<div class='panel-body'> " +
                                                                         "<div class='promo-detail'><h4>Detalle de la promoción</h4></div>" +
-                                                                        "<hr style='margin: 5px 0;'>" +
+                                                                        "<hr style='margin: 5px 0; border-top: 1px solid #c3c3c3;'>" +
                                                                         "<div class='promo-cost row'><div class='col-md-4'><b>Valor:</b></div><div class='col-md-8'>"+ promotionData[i].fields.cost + "</div></div>" +
                                                                         "<div class='promo-city row'><div class='col-md-4'><b>ciudad:</b></div><div class='col-md-8'>"+ promotionData[i].fields.city + "</div></div>" +
                                                                         "<div class='promo-cost row'><div class='col-md-4'><b>Finaliza:</b></div><div class='col-md-8'>"+ promotionData[i].fields.end_date + "</div></div>" +
+                                                                        "<hr style='margin: 5px 0; border-top: 1px solid #c3c3c3;'>" +
                                                                         "<div class='promo-description'><b>Descripción:</b>" +
-                                                                            "<hr style='margin: 5px 0;'>" +
                                                                             "<div class='text-promo-description'>" +
                                                                                 promotionData[i].fields.description +
                                                                             "</div>" +
@@ -580,40 +681,41 @@
 
                                                 "</div>" +
                                                 "<hr>" +
-                                                "<div class='row'>"+
-                                                    "<div class='col-md-2'> "+
-                                                        "<div class='promo-category'>"+categoryName+"</div>" +
+                                                "<div class='row' style='background-color: #efefef; margin: 0;'>"+
+                                                    "<div class='col-md-3'> "+
+                                                        "<div class='promo-category'><b>Categoría:</b> "+categoryName+"</div>" +
                                                     "</div>" +
                                                     "<div class='col-md-1' style='width:24px'> | </div>"+
                                                     "<div class='col-md-1'>"+
                                                         "<a href+'#' class='promo-favoritos'><i class='fas fa-thumbs-up'></i> like</a>" +
                                                     "</div>" +
                                                     "<div class='col-md-1' style='width:24px'> | </div>"+
-                                                    "<div class='col-md-7'>"+
+                                                    "<div class='col-md-6'>"+
                                                     "</div>" +
                                                 "</div>" +
                                                 "<hr>" +
                                                 "<div class='promo-message-tittle'><h4>Agrega un comentario:</h4></div>" +
-                                                "<div class='panel panel-default'>" +
-                                                    "<div class='panel-body'> " +
-                                                        "<div class='email-message'>"+
-                                                            "<div class='input-group'>" +
-                                                              "<span class='input-group-addon' id='basic-addon1'>Email</span>" +
-                                                              "<input type='email' class='form-control' placeholder='Emai' aria-describedby='basic-addon1'>" +
-                                                            "</div>" +
-                                                        "</div>" +
-                                                        "<div class='email-message'>"+
-                                                            "<textarea class='form-control' rows='3'></textarea>" +
-                                                        "</div>" +
-                                                        "<hr>" +
-                                                        "<div class='promo-message-added'><h5>Mensajes agregados:</h5></div>" +
-                                                        "<div class='panel panel-default'>" +
-                                                            "<div class='panel-body'> " +
-                                                                "<div class='form-group'>" +
-                                                                    "<label for='exampleInputEmail1'>Pedro perez: </label>" +
-                                                                    "<div class='promo-message-tittle'>Mensaje de pedro perez respecto a esta promocion.</div>" +
+                                                "<div class='panel panel-default' style='background-color: #efefef;'>" +
+                                                    "<div class='panel-body'>" +
+                                                        "<div class='alert alert-danger alert-logged-messsage' role='alert'><b>Hola!</b> Ingresa al sistema para poder agregar un mensaje.</div>" +
+                                                        "<form>" +
+                                                            "<div class='email-message'>"+
+                                                                "<div class='input-group'>" +
+                                                                  "<span class='input-group-addon' id='basic-addon1'><i class='fas fa-envelope'></i> Email</span>" +
+                                                                  "<input id='email-message' type='email' class='form-control' placeholder='Email' aria-describedby='basic-addon1'>" +
                                                                 "</div>" +
                                                             "</div>" +
+                                                            "<div class='text-message'>"+
+                                                                "<textarea id='text-message' class='form-control' rows='3'></textarea>" +
+                                                            "</div>" +
+                                                            "<div class='div-send-commit'>"+
+                                                                "<button id='btn-send-commit' type='submit' class='btn btn-primary'>Comentar!</button>" +
+                                                            "</div>" +
+                                                        "</form>" +
+                                                        "<hr style='border-top: 1px solid #c3c3c3;'>" +
+                                                        "<div class='promo-message-added'><h5>Mensajes agregados:</h5></div>" +
+                                                        "<div class='panel panel-default'>" +
+                                                            "<div id='created-message' class='panel-body'></div>" +
                                                         "</div>" +
                                                     "</div>" +
                                                 "</div>" +
@@ -621,7 +723,6 @@
                                             "</div>" +
                                             "<div class='modal-footer'>" +
                                                 "<button type='button' class='btn btn-default close-modal' data-dismiss='modal'>Close</button>" +
-                                                "<button type='button' class='btn btn-primary'>Save changes</button>" +
                                             "</div>" +
                                         "</div>" +
                                     "</div>" +
@@ -638,6 +739,7 @@
                 }).fail(function (jqxhr, textStatus, error) {
                     var err = textStatus + ", " + error;
                 });
+
             });
 
             $("#modal-promotion").on("click", ".close-modal", function(e){
@@ -661,7 +763,6 @@
                         }
                     }
                 }
-                console.log(checkedCategory);
                 if( $("#register-password").val() != $("#register-confirm-password").val() ){
                     console.log("las contraseñas no coinciden");
                 } else {
@@ -746,6 +847,8 @@
                         $("#li-login, #li-register").css("display", "none");
                         $("#li-welcome, #li-username").css("display", "block");
                         $(".btn-username").html("").append(data.username);
+                        $(".email-message").hide();
+                        $(".text-message").hide();
                     } else {
                         $("#li-login, #li-register").css("display", "block");
                         $("#li-welcome, #li-username").css("display", "none");

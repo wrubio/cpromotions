@@ -50,6 +50,23 @@
         .user-image img {
              width: 140px;
         }
+        .checkbox-css {
+            border: 1px solid black;
+            height: 10px;
+            width: 10px;
+            display: inline-block;
+            cursor:pointer;
+            margin-right: 5px;
+        }
+        .check {
+          visibility: hidden;
+          background: black;
+          display: block;
+          height: 100%;
+        }
+        .active {
+          visibility: visible;
+        }
     </style>
 </head>
 <body>
@@ -62,7 +79,7 @@
                     </a>
                 </div>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="https://cpromotion.herokuapp.com/">Regresar a cPromotion</a></li>
+                    <li><a href="http://127.0.0.1:8000/">Regresar a cPromotion</a></li>
                     <li><a id="profile-logout" href="#">Singout <i class="fas fa-sign-out-alt"></i></a></li>
                 </ul>
             </div>
@@ -70,7 +87,7 @@
     </header>
     <article>
         <div class="container img-name-container">
-            <form id="profile-form" action="https://cpromotion.herokuapp.com/edit_profile/" enctype="multipart/form-data" method="POST">
+            <form id="profile-form" action="http://127.0.0.1:8000/edit_profile/" enctype="multipart/form-data" method="POST">
                 <div class="row">
                     <div class="col-md-3">
                         <div class="panel panel-default">
@@ -136,11 +153,11 @@
                             <div class="panel-body">
                                 <div class="form-group">
                                     <label for="password">Contraseña:</label>
-                                    <input name="password" type="password" class="form-control" id="password-profile" placeholder="Password">
+                                    <input name="password" type="password" class="form-control" id="password-profile" placeholder="Password" disabled>
                                 </div>
                                 <div class="form-group">
                                     <label for="confirmarContrasena">Confirmar Contraseña:</label>
-                                    <input name="confirm_password" type="password" class="form-control" id="confirm-password-profile" placeholder="Password">
+                                    <input name="confirm_password" type="password" class="form-control" id="confirm-password-profile" placeholder="Password" disabled>
                                 </div>
                             </div>
                         </div>
@@ -150,6 +167,7 @@
                                     <label for="categorias">Categorías:</label>
                                     <hr>
                                     <div id="category-profile" class="row"></div>
+                                    <input name="category" id="input-category" type="text" hidden>
                                 </div>
                             </div>
                         </div>
@@ -157,8 +175,8 @@
                             <div class="panel-body">
                                 <div class="row">
                                     <div class="col-md-offset-4 col-md-8" style="text-align: right;">
-                                        <button type="button" class="btn btn-success"><i class="fas fa-edit"></i> Editar</button>
-                                        <button id="btn-edit-profile" type="submit" class="btn btn-danger"><i class="fas fa-save"></i> Enviar</button>
+                                        <button id="btn-edit_information" type="button" class="btn btn-success"><i class="fas fa-edit"></i> Editar</button>
+                                        <button id="btn-edit-profile" type="submit" class="btn btn-danger"><i class="fas fa-save" disabled ></i> Enviar</button>
                                     </div>
                                 </div>
                             </div>
@@ -171,6 +189,89 @@
     <footer></footer>
     <script type="text/javascript">
         $(document).ready(function(){
+            $("#btn-edit-profile").prop("disabled", true);
+            // ==============================================================================================
+            // User Categories controller
+            // ==============================================================================================
+            $("#category-profile").on("click", ".checkbox-css", function(e){
+               e.preventDefault();
+               if($(this).children().eq(0).css("visibility") === "hidden"){
+                   $(this).children().eq(0).css("visibility", "visible");
+               } else {
+                   $(this).children().eq(0).css("visibility", "hidden");
+               }
+               var getChecked = $(".check-container");
+               var getTextChecked = "";
+               for(var ck=0; ck<getChecked.length; ck++){
+                   var visible = getChecked.eq(ck).children().eq(0).children().eq(0);
+                   if(visible.css("visibility") === "visible") {
+                       if(getTextChecked != ""){
+                           getTextChecked = getTextChecked + "-" + getChecked.eq(ck).children().eq(1).html();
+                       } else{
+                           getTextChecked = getChecked.eq(ck).children().eq(1).html();
+                       }
+                   }
+               }
+               $("#input-category").val(getTextChecked);
+            });
+            // ==============================================================================================
+            // Is auth controller
+            // ==============================================================================================
+            (function (){
+                $.getJSON("https://cpromotion.herokuapp.com/logged_users/").done(function(data){
+                    if( data.message === "logged"){
+                        $("#li-login, #li-register").css("display", "none");
+                        $("#li-welcome, #li-username").css("display", "block");
+                        $("#get-username-profile").html("").append(data.username).prop("disabled", true);
+                        $("#email-profile").val(data.email).prop("disabled", true);
+                        $("#name-profile").val(data.first_name).prop("disabled", true);
+                        $("#last-name-profile").val(data.last_name).prop("disabled", true);
+                        $("#username-profile").val(data.username).prop("disabled", true);
+                    } else {
+                        $("#li-login, #li-register").css("display", "block");
+                        $("#li-welcome, #li-username").css("display", "none");
+                    }
+                }).fail(function(jqxhr, textStatus, error) {
+                    var err = textStatus + ", " + error;
+                });
+            })();
+            // ==============================================================================================
+            // Send value of inpunt user information
+            // ==============================================================================================
+            $.getJSON("http://127.0.0.1:8000/user_information/").done(function(data){
+                    $("#country-profile").val(data[0].fields.country).prop("disabled", true);
+                    $("#city-profile").val(data[0].fields.city).prop("disabled", true);
+                    $("#address-profile").val(data[0].fields.address).prop("disabled", true);
+                    var getCategory = data[0].fields.category,
+                        splitCategory = getCategory.split("-"),
+                        checkCategories = $(".check-container");
+                    console.log(checkCategories.length)
+                    for(var ca=0; ca<checkCategories.length; ca++){
+                        var checkCategory = checkCategories.eq(ca).children().eq(1);
+                        for( var sp=0; sp< splitCategory.length; sp++){
+                            if(checkCategory.html() === splitCategory[sp] ){
+                                checkCategories.eq(ca).children().eq(0).children().eq(0).css("visibility", "visible");
+                            }
+                        }
+
+                    }
+
+            }).fail();
+
+            $("#btn-edit_information").on("click", function(e){
+               e.preventDefault();
+               var getInputs = $("form").find("input");
+               for(var ip=0; ip<getInputs.length;ip++) {
+                   if (getInputs.eq(ip).attr("id") === "password-profile" || getInputs.eq(ip).attr("id") === "confirm-password-profile") {
+                       getInputs.eq(ip).prop("disabled", true);
+                   } else {
+                       getInputs.eq(ip).prop("disabled", false);
+                   }
+               }
+
+               $(this).prop("disabled", true);
+               $("#btn-edit-profile").prop("disabled", false);
+            });
             // ==============================================================================================
             // Categories controller
             // ==============================================================================================
@@ -179,23 +280,29 @@
                categorias=data;
                for(var ca=0; ca<categorias.length; ca++){
                     $("#category-profile").append(
-                        "<div class='col-md-6'>" +
-                           "<input type='checkbox' class='register-category' value='"+categorias[ca].fields.name+"'>"+categorias[ca].fields.name +
+                        "<div class='col-md-6 check-container'>" +
+                           "<div class='checkbox-css'>" +
+                                "<i class='check'></i>" +
+                            "</div>" +
+                            "<span class='check-names'>"+ categorias[ca].fields.name +"</span>" +
                         "</div>"
                     )
                 }
 
             };
-            $.getJSON("https://cpromotion.herokuapp.com/list_category").done(function(data){
+            $.getJSON("http://127.0.0.1:8000/list_category").done(function(data){
                 dataCategory(data);
             });
             // ==============================================================================================
             // Edit profile controller
             // ==============================================================================================
             $("#btn-edit-profile").on("click", function(e){
+                $("#btn-edit-profile").prop("disabled", true);
+                $("#btn-edit_information").prop("disabled", false);
+
                 var formData = new FormData($("#profile-form")[0]);
-                console.log(formData);
                 e.preventDefault();
+                //Openiendo codigo csrf para el registro
                 var csrftoken = Cookies.get('csrftoken');
                 function csrfSafeMethod(method) {
                     // these HTTP methods do not require CSRF protection
@@ -210,14 +317,14 @@
                 });
                 $.ajax({
                     type: "POST",
-                    url: "https://cpromotion.herokuapp.com/edit_profile/",
+                    url: "http://127.0.0.1:8000/edit_profile/",
                     data: formData,
                     cache: false,
                     contentType: false,
                     processData: false,
                     success: function(data){
                         console.log(data);
-                        //window.location.href = "https://cpromotion.herokuapp.com/profile/";
+                        //window.location.href = "http://127.0.0.1:8000/profile/";
                     },
                     failure: function(errMessage){
                         console.log("Error enviando datos de registro");
@@ -229,9 +336,9 @@
             // ==============================================================================================
             $("#profile-logout").on("click", function(e){
                e.preventDefault();
-               $.getJSON("https://cpromotion.herokuapp.com/logout_users/").done(function(data){
+               $.getJSON("http://127.0.0.1:8000/logout_users/").done(function(data){
                     if( data.message === "ok"){
-                        window.location.href = "https://cpromotion.herokuapp.com/";
+                        window.location.href = "http://127.0.0.1:8000/";
                     } else {
                         console.log("Error al cerrar sesion");
                     }
@@ -239,24 +346,6 @@
                     var err = textStatus + ", " + error;
                 });
             });
-            // ==============================================================================================
-            // Is auth controller
-            // ==============================================================================================
-            (function (){
-                $.getJSON("https://cpromotion.herokuapp.com/logged_users/").done(function(data){
-                    if( data.message === "logged"){
-                        $("#li-login, #li-register").css("display", "none");
-                        $("#li-welcome, #li-username").css("display", "block");
-                        $("#get-username-profile").html("").append(data.username);
-                        console.log(data);
-                    } else {
-                        $("#li-login, #li-register").css("display", "block");
-                        $("#li-welcome, #li-username").css("display", "none");
-                    }
-                }).fail(function(jqxhr, textStatus, error) {
-                    var err = textStatus + ", " + error;
-                });
-            })();
         });
 
     </script>

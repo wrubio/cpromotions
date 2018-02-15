@@ -86,3 +86,4 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
         fields = ('country', 'city', 'address', 'image')
+

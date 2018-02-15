@@ -9,11 +9,28 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 
-from .models import ProfileForm, UserProfile
+from .models import ProfileForm, UserProfile, Message, Promotion
 from . import models
 
 
 # Create your views here.
+@csrf_exempt
+def list_message(request):
+    message = serializers.serialize('json', models.Message.objects.all())
+    return HttpResponse(message, content_type='application/json')
+
+
+
+@csrf_exempt
+def user_information(request):
+    current_user = request.user.userprofile.user
+    if request.user.is_authenticated():
+        profile_information = serializers.serialize('json', models.UserProfile.objects.filter(user=current_user))
+        return HttpResponse(profile_information, content_type='application/json')
+    else:
+        return render(request, "home/index.html")
+
+
 @csrf_exempt
 def list_promotion(request):
     promotions = serializers.serialize('json', models.Promotion.objects.all())
@@ -36,14 +53,26 @@ def profile(request):
 
 
 @login_required
+def add_message(request):
+    if request.method == 'POST':
+        jsonMessage = json.loads(request.body)
+        promotion = Promotion.objects.get(promotion_name=jsonMessage['promotion'])
+        add_message = Message.objects.create(user=request.user, promotion=promotion, message=jsonMessage['message'], mail=jsonMessage['email'])
+        add_message.save()
+        return JsonResponse({"message": "Mensaje registrado y publicado"})
+    else:
+        return JsonResponse({"message": "Ups! Estamos revisado el problema"})
+
+@login_required
 @transaction.atomic
 def update_user_profile(request):
     if request.method == 'POST':
         current_user = request.user.userprofile.user
 
         upload_image = UserProfile.objects.get(user=current_user)
-        upload_image.image=request.FILES['image']
-        upload_image.save()
+        if len(request.FILES) != 0:
+            upload_image.image=request.FILES['image']
+            upload_image.save()
 
         user_profile = User.objects.filter(username=current_user)
         user_profile.update(
@@ -51,20 +80,18 @@ def update_user_profile(request):
             first_name=request.POST['first_name'],
             last_name=request.POST['last_name'],
             email=request.POST['email'],
-            password=request.POST['password'],
         )
 
         profile_edit = UserProfile.objects.filter(user=current_user)
         profile_edit.update(
             country=request.POST['country'],
             city=request.POST['city'],
-            address=request.POST['address']
+            address=request.POST['address'],
+            category=request.POST['category']
         )
         return JsonResponse({"message": "Usuario registrado"})
     else:
-        current_user = request.user
-        message = "Usuario no registrado"
-        return JsonResponse({"message": current_user.userprofile.country})
+        return JsonResponse({"message": "Ups, algo nos impide realizar su actualizaci&oacuten"})
 
 
 
@@ -116,10 +143,6 @@ def user_logged(request):
     if request.user.is_authenticated():
         message = "logged"
         username = request.user.username
-        country = request.user.userprofile.country
-        city = request.user.userprofile.city
-        address = request.user.userprofile.address
-        category = request.user.userprofile.category
         first_name = request.user.first_name
         last_name = request.user.last_name
         email = request.user.email
@@ -127,11 +150,6 @@ def user_logged(request):
     else:
         message = "logout"
         username = ""
-        username = ""
-        country = ""
-        city = ""
-        address = ""
-        category = ""
         first_name = ""
         last_name = ""
         email = ""
@@ -142,8 +160,4 @@ def user_logged(request):
         "first_name": first_name,
         "last_name": last_name,
         "email": email,
-        "country": country,
-        "city": city,
-        "address": address,
-        "category": category
     })
