@@ -184,6 +184,13 @@
             overflow-y: auto;
             height: 250px
         }
+        #loaded-promotion-modal {
+            display: none;
+            position: absolute;
+            left: 0;
+            top: 0;
+            background-color: #333333;
+        }
     </style>
 </head>
 <body>
@@ -446,8 +453,11 @@
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
     </article>
+    <article id="loaded-promotion-modal">loading</article>
     <script type="text/javascript">
         $(document).ready(function () {
+            $("#loaded-promotion-modal").height($(window).height());
+            $("#loaded-promotion-modal").width($(window).width());
             // ==============================================================================================
             // Add Message in promotion controller
             // ==============================================================================================
@@ -622,6 +632,7 @@
             // Promotion Modal controller
             // ==============================================================================================
             $("#promotions").on("click", ".modal-promotion", function(e){
+                $("#loaded-promotion-modal").show();
                 e.preventDefault();
                 var promotionId = $(this).attr("id");
                 var splitId = promotionId.split("n");
