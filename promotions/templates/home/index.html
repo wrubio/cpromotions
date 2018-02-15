@@ -186,10 +186,11 @@
         }
         #loaded-promotion-modal {
             display: none;
-            position: absolute;
-            left: 0;
-            top: 0;
             background-color: #333333;
+            z-index: 4;
+            opacity: 0.7;
+            color: #FFFFFF;
+            font-size: 24px;
         }
     </style>
 </head>
@@ -453,22 +454,36 @@
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
     </article>
-    <article id="loaded-promotion-modal">loading</article>
+    <article id="loaded-promotion-modal">
+        <div id="text-loaded">
+            <div>Cargando contenido</div>
+            <div><i class="fas fa-sync"></i></div>
+        </div>
+    </article>
     <script type="text/javascript">
         $(document).ready(function () {
+            // ==============================================================================================
+            // Center div loading for modal promotion controller
+            // ==============================================================================================
             $("#loaded-promotion-modal").height($(document).height());
             $("#loaded-promotion-modal").width($(document).width());
 
-            jQuery.fn.center = function () {
-                this.css("position","absolute");
-                this.css("top", Math.max(0, (($(window).height() - $(this).outerHeight()) / 2) +
-                                                            $(window).scrollTop()) + "px");
-                this.css("left", Math.max(0, (($(window).width() - $(this).outerWidth()) / 2) +
-                                                            $(window).scrollLeft()) + "px");
+            jQuery.fn.center = function(parent) {
+                if (parent) {
+                    parent = this.parent();
+                } else {
+                    parent = window;
+                }
+                this.css({
+                    "position": "absolute",
+                    "top": ((($(parent).height() - this.outerHeight()) / 2) + $(parent).scrollTop() + "px"),
+                    "left": ((($(parent).width() - this.outerWidth()) / 2) + $(parent).scrollLeft() + "px")
+                });
                 return this;
             };
 
             $("#loaded-promotion-modal").center();
+            $("#text-loaded").center();
             // ==============================================================================================
             // Add Message in promotion controller
             // ==============================================================================================
@@ -531,7 +546,8 @@
             // Show / hode message in promotion modal controller
             // ==============================================================================================
 
-            $("#modal-promotion").one("append", function(){
+            $("#modal-promotion").bind("append", function(){
+                console.log("entro");
                 setTimeout(function(){
                     $.getJSON("https://cpromotion.herokuapp.com/list_message").done(function(data) {
                         for( var pro=0; pro<data.length; pro++) {
@@ -560,9 +576,9 @@
                     }).fail(function(jqxhr, textStatus, error) {
                         var err = textStatus + ", " + error;
                     });
-                    $("#loaded-promotion-modal").hide();
+                    //$("#loaded-promotion-modal").hide();
                     $(".modal-box").modal('show');
-                }, 800);
+                }, 500);
 
             });
             // ==============================================================================================
@@ -647,7 +663,7 @@
             // Promotion Modal controller
             // ==============================================================================================
             $("#promotions").on("click", ".modal-promotion", function(e){
-                $("#loaded-promotion-modal").show();
+                //$("#loaded-promotion-modal").show();
                 e.preventDefault();
                 var promotionId = $(this).attr("id");
                 var splitId = promotionId.split("n");
