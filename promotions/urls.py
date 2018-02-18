@@ -15,9 +15,7 @@ urlpatterns = [
     django.conf.urls.url(r'^logged_users/$', views.user_logged, name='logged_users'),
     django.conf.urls.url(r'^profile/$', views.profile, name='profile'),
     django.conf.urls.url(r'^edit_profile/$', views.update_user_profile, name='edit_profile'),
-    django.conf.urls.url(r'^user_information/$', views.user_information, name='user_information'),
+    django.conf.urls.url(r'^user_information/$', user_information, name='user_information'),
     django.conf.urls.url(r'^add_message/$', views.add_message, name='add_message'),
     django.conf.urls.url(r'^list_message/$', views.list_message, name='list_message'),
-    django.conf.urls.url(r'^media/(?P<path>.*)$', 'django.views.static.serve',
-                        {'document_root': settings.MEDIA_ROOT, 'show_indexes': True}),
 ]
