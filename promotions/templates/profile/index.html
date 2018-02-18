@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -79,7 +80,7 @@
                     </a>
                 </div>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="https://cpromotion.herokuapp.com/">Regresar a cPromotion</a></li>
+                    <li><a href="http://127.0.0.1:8000/">Regresar a cPromotion</a></li>
                     <li><a id="profile-logout" href="#">Singout <i class="fas fa-sign-out-alt"></i></a></li>
                 </ul>
             </div>
@@ -87,13 +88,13 @@
     </header>
     <article>
         <div class="container img-name-container">
-            <form id="profile-form" action="https://cpromotion.herokuapp.com/edit_profile/" enctype="multipart/form-data" method="POST">
+            <form id="profile-form" action="http://127.0.0.1:8000/edit_profile/" enctype="multipart/form-data" method="POST">
                 <div class="row">
                     <div class="col-md-3">
                         <div class="panel panel-default">
                             <div class="panel-body">
                                 <div class="user-image">
-                                    <img src="https://x1.xingassets.com/assets/frontend_minified/img/users/nobody_m.original.jpg" alt="Ejemplo borrar">
+                                    <img src="" alt="Ejemplo borrar">
                                 </div>
                                 <div class="user-name">
                                     <h4 id="get-username-profile" >User Name</h4>
@@ -218,7 +219,7 @@
             // Is auth controller
             // ==============================================================================================
             (function (){
-                $.getJSON("https://cpromotion.herokuapp.com/logged_users/").done(function(data){
+                $.getJSON("http://127.0.0.1:8000/logged_users/").done(function(data){
                     if( data.message === "logged"){
                         $("#li-login, #li-register").css("display", "none");
                         $("#li-welcome, #li-username").css("display", "block");
@@ -238,14 +239,15 @@
             // ==============================================================================================
             // Send value of inpunt user information
             // ==============================================================================================
-            $.getJSON("https://cpromotion.herokuapp.com/user_information/").done(function(data){
+            $.getJSON("http://127.0.0.1:8000/user_information/").done(function(data){
                     $("#country-profile").val(data[0].fields.country).prop("disabled", true);
                     $("#city-profile").val(data[0].fields.city).prop("disabled", true);
                     $("#address-profile").val(data[0].fields.address).prop("disabled", true);
+                    $(".user-image img").attr("src", "../"+data[0].fields.image );
+                    $("#input-category").val(data[0].fields.category);
                     var getCategory = data[0].fields.category,
                         splitCategory = getCategory.split("-"),
                         checkCategories = $(".check-container");
-                    console.log(checkCategories.length)
                     for(var ca=0; ca<checkCategories.length; ca++){
                         var checkCategory = checkCategories.eq(ca).children().eq(1);
                         for( var sp=0; sp< splitCategory.length; sp++){
@@ -288,9 +290,8 @@
                         "</div>"
                     )
                 }
-
             };
-            $.getJSON("https://cpromotion.herokuapp.com/list_category").done(function(data){
+            $.getJSON("http://127.0.0.1:8000/list_category").done(function(data){
                 dataCategory(data);
             });
             // ==============================================================================================
@@ -317,14 +318,14 @@
                 });
                 $.ajax({
                     type: "POST",
-                    url: "https://cpromotion.herokuapp.com/edit_profile/",
+                    url: "http://127.0.0.1:8000/edit_profile/",
                     data: formData,
                     cache: false,
                     contentType: false,
                     processData: false,
                     success: function(data){
                         console.log(data);
-                        //window.location.href = "https://cpromotion.herokuapp.com/profile/";
+                        //window.location.href = "http://127.0.0.1:8000/profile/";
                     },
                     failure: function(errMessage){
                         console.log("Error enviando datos de registro");
@@ -336,9 +337,9 @@
             // ==============================================================================================
             $("#profile-logout").on("click", function(e){
                e.preventDefault();
-               $.getJSON("https://cpromotion.herokuapp.com/logout_users/").done(function(data){
+               $.getJSON("http://127.0.0.1:8000/logout_users/").done(function(data){
                     if( data.message === "ok"){
-                        window.location.href = "https://cpromotion.herokuapp.com/";
+                        window.location.href = "http://127.0.0.1:8000/";
                     } else {
                         console.log("Error al cerrar sesion");
                     }

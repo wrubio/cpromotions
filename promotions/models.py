@@ -43,8 +43,7 @@ class Favorite(models.Model):
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, null=True, blank=True, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='static/images/profile', null=True)
-    imageUrl = models.CharField(max_length=50, null=True)
+    image = models.ImageField(upload_to='static/images/profile/', null=True)
     country = models.CharField(max_length=50, null=True)
     city = models.CharField(max_length=50, null=True)
     address = models.CharField(max_length=50, null=True)
