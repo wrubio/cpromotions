@@ -20,7 +20,6 @@ def list_message(request):
     return HttpResponse(message, content_type='application/json')
 
 
-
 @csrf_exempt
 def user_information(request):
     current_user = request.user.userprofile.user
@@ -30,11 +29,12 @@ def user_information(request):
     else:
         return render(request, "home/index.html")
 
-
+#-rafa
 @csrf_exempt
 def list_promotion(request):
     promotions = serializers.serialize('json', models.Promotion.objects.all())
     return HttpResponse(promotions, content_type='application/json')
+
 
 @csrf_exempt
 def list_category(request):
