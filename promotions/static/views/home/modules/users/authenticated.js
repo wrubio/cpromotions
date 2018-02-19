@@ -6,7 +6,7 @@ define([], function () {
 
     users.authenticated = function () {
         (function (){
-            $.getJSON("http://127.0.0.1:8000/logged_users/").done(function(data){
+            $.getJSON("https://cpromotion.herokuapp.com/logged_users/").done(function(data){
                 if( data.message === "logged"){
                     $("#li-login, #li-register").css("display", "none");
                     $("#li-welcome, #li-username").css("display", "block");

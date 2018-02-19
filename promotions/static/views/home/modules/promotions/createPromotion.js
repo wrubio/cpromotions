@@ -5,7 +5,7 @@ define([], function () {
     var promotion = [];
 
     promotion.create = function () {
-        $.getJSON("http://127.0.0.1:8000/list_promotion").done(function (data) {
+        $.getJSON("https://cpromotion.herokuapp.com/list_promotion").done(function (data) {
             var getData = data;
             var colorCtr = 0;
             var rowCtr = 0;

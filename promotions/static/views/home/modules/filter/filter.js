@@ -19,7 +19,7 @@ define([], function () {
 
     promotion.dropdown = function () {
 
-        $.getJSON("http://127.0.0.1:8000/list_cities").done(function (data) {
+        $.getJSON("https://cpromotion.herokuapp.com/list_cities").done(function (data) {
             for(var cts=0; cts<data.length; cts++){
                 var cityName = data[cts].fields.name;
                 $(".dropdown-cities").append("<li><a class='city-dd' data-city='"+ data[cts].pk +"' href='#'>"+ cityName +"</a></li>");
@@ -27,7 +27,7 @@ define([], function () {
             $(".dropdown-cities").prepend("<li><a class='city-dd' href='#'>Todas</a></li><li role='separator' class='divider'></li>");
         });
 
-        $.getJSON("http://127.0.0.1:8000/list_category").done(function (data) {
+        $.getJSON("https://cpromotion.herokuapp.com/list_category").done(function (data) {
             for(var ct=0; ct<data.length; ct++){
                 var categorytyName = data[ct].fields.name;
                 $(".dropdown-category").append("<li><a class='category-dd' data-category='"+ data[ct].pk +"' href='#'>"+ categorytyName +"</a></li>");
@@ -80,7 +80,7 @@ define([], function () {
             $(".promotion-container").html("");
             $(".promotion-container").append("<div class='promotions'><div class='promotion-row row container'></div></div>");
 
-            $.getJSON("http://127.0.0.1:8000/list_promotion").done(function (data) {
+            $.getJSON("https://cpromotion.herokuapp.com/list_promotion").done(function (data) {
                 var getData = data;
                 var colorCtr = 0;
                 var rowCtr = 0;
