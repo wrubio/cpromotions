@@ -7,7 +7,7 @@ define([], function () {
     users.login = function () {
         $.ajax({
             type: "POST",
-            url: "http://127.0.0.1:8000/login_users/",
+            url: "https://cpromotion.herokuapp.com/login_users/",
             data: JSON.stringify({
                 username: $("#login-username").val(),
                 password: $("#login-password").val()
@@ -16,7 +16,7 @@ define([], function () {
             dataType: "json",
             success: function(data){
                 if(data.message === "ok"){
-                    window.location.href = "http://127.0.0.1:8000/";
+                    window.location.href = "https://cpromotion.herokuapp.com/";
                 } else {
                     console.log(data.message); // Traer el texto para mostrar el retorno
                 }

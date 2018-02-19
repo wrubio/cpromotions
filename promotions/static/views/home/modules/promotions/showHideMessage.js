@@ -6,7 +6,7 @@ define([], function () {
 
     promotion.showHideMessage = function () {
 
-        $.getJSON("http://127.0.0.1:8000/list_message").done(function(data) {
+        $.getJSON("https://cpromotion.herokuapp.com/list_message").done(function(data) {
             for( var pro=0; pro<data.length; pro++) {
                 if(parseInt(data[pro].fields.promotion) === parseInt($("#modal-promo-name").attr("data-id"))){
                     $("#created-message").prepend(
@@ -22,7 +22,7 @@ define([], function () {
             var err = textStatus + ", " + error;
         });
 
-        $.getJSON("http://127.0.0.1:8000/logged_users/").done(function(data){
+        $.getJSON("https://cpromotion.herokuapp.com/logged_users/").done(function(data){
             if( data.message === "logged"){
                 $(".email-message").show();
                 $(".text-message").show();

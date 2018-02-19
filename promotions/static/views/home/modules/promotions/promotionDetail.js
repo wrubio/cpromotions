@@ -7,7 +7,7 @@ define([], function(){
     promotion.detail = function (categorias, splitId) {
         //$("#loaded-promotion-modal").show();
 
-        $.getJSON("http://127.0.0.1:8000/list_promotion").done(function(data){
+        $.getJSON("https://cpromotion.herokuapp.com/list_promotion").done(function(data){
             var promotionData = data;
             // ======================================================================================
             // Recorre el json para buscar cual es la promocion a consultar

@@ -27,7 +27,7 @@ define([], function () {
             });
             $.ajax({
                 type: "POST",
-                url: "http://127.0.0.1:8000/add_message/",
+                url: "https://cpromotion.herokuapp.com/add_message/",
                 data: JSON.stringify({
                     email: emailMessage.val(),
                     message: textMessage.val(),

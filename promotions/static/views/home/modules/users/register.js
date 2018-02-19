@@ -22,7 +22,7 @@ define([], function(){
         } else {
             $.ajax({
                 type: "POST",
-                url: "http://127.0.0.1:8000/register_users/",
+                url: "https://cpromotion.herokuapp.com/register_users/",
                 data: JSON.stringify({
                     first_name: $("#register-name").val(),
                     last_name: $("#register-last-name").val(),
@@ -38,7 +38,7 @@ define([], function(){
                 dataType: "json",
                 success: function(data){
                     console.log(data);
-                    window.location.href = "http://127.0.0.1:8000/";
+                    window.location.href = "https://cpromotion.herokuapp.com/";
                 },
                 failure: function(errMessage){
                     console.log("Error enviando datos de registro");

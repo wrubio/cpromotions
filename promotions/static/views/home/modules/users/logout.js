@@ -5,9 +5,9 @@ define([], function () {
     var users = [];
 
     users.logout = function () {
-        $.getJSON("http://127.0.0.1:8000/logout_users/").done(function(data){
+        $.getJSON("https://cpromotion.herokuapp.com/logout_users/").done(function(data){
             if( data.message === "ok"){
-                window.location.href = "http://127.0.0.1:8000/";
+                window.location.href = "https://cpromotion.herokuapp.com/";
             } else {
                 console.log("Error al cerrar sesion");
             }
