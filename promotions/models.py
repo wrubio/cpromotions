@@ -14,16 +14,23 @@ class Category(models.Model):
         return u'{}'.format(self.name)
 
 
+class Cities(models.Model):
+    name = models.CharField(max_length=30)
+
+    def __unicode__(self):
+        return u'{}'.format(self.name)
+
 class Promotion(models.Model):
     promotion_name = models.CharField(max_length=50)
     initial_date = models.DateTimeField(auto_now_add=False)
     end_date = models.DateTimeField(auto_now_add=False)
-    city = models.CharField(max_length=20)
-    cost = models.DecimalField(max_digits=10, decimal_places=3)
+    city = models.CharField(max_length=20, null=True)
+    ciudad = models.ForeignKey(Cities, null=True, blank=True)
+    cost = models.DecimalField(max_digits=10, decimal_places=0)
     description = models.CharField(max_length=300)
     image = models.CharField(max_length=600)
     state = models.BooleanField(default=True)
-    category = models.ForeignKey(Category, null=True, blank=True, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, null=True, blank=True)
 
     def __unicode__(self):
         return u'{}'.format(self.promotion_name)

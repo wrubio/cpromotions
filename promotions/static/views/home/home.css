@@ -1,12 +1,15 @@
 .slick-track {
     height: 460px; /*594*/
 }
+
 .slick-dots {
     bottom: 20px;
 }
+
 .slick-dots {
     bottom: -54px;
 }
+
 .slick-dots li button {
     display: block;
     width: 20px;
@@ -17,14 +20,17 @@
     background-color: #efe4e4 !important;
     box-shadow: inset 0 1px 1px 0 #999 !important;
 }
+
 .slick-dots li button:hover, .slick-dots li button:focus, .slick-dots li.slick-active button {
     background-color: #333333 !important;
     box-shadow: inset 0 1px 1px 0 #555 !important;
 }
+
 .slick-dotted.slick-slider {
     margin-bottom: 0;
 }
-.slider-docks{
+
+.slider-docks {
     background-color: #e1e1e1;
     height: 90px;
     border-bottom: 1px solid #FFFFFF;
@@ -34,43 +40,49 @@
     min-width: 340px;
     padding: 20px;
 }
+
 #li-welcome {
     padding-top: 14px;
     color: #ffffff;
     margin-right: 15px;
 }
+
 #li-username {
     padding-top: 7px;
     color: #ffffff;
 }
 
-.title-page{
+.title-page {
     background-image: -moz-linear-gradient(top, #e5e5e5, white 50%);
     background-image: -webkit-linear-gradient(top, #e5e5e5 0, white 50%);
     background-image: linear, to bottom, #e5e5e5 0, white 50%;
     background-repeat: repeat-x;
 }
+
 .continer-title-page {
     font-family: 'Open Sans', sans-serif;
     padding-top: 40px;
     color: #969696;
 }
+
 .filters {
     padding-top: 15px;
 }
+
 .panel-promotion {
     margin-bottom: 20px;
     background-color: #B680CE;
     border: 1px solid transparent;
     border-radius: 0;
-    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
-    box-shadow: 0 1px 1px rgba(0,0,0,.05);
+    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
     height: 260px;
     border-radius: 4px;
     overflow: hidden;
     cursor: pointer;
 }
-.promotion-information{
+
+.promotion-information {
     position: absolute;
     left: 0;
     top: 0;
@@ -78,26 +90,31 @@
     width: 100%;
     z-index: 2;
 }
+
 .promotion-title {
     color: #FFFFFF;
 }
+
 .promotion-cost {
     font-size: 18px;
     color: #FFFFFF;
     text-align: right;
 }
+
 .promotion-description {
     font-size: 16px;
     color: #765486;
     font-weight: 700;
     text-align: right;
 }
+
 .btn-show-promotion {
     color: #b581ce;
     background-color: #ffffff;
     border-color: #ffffff;
 }
-.container-image{
+
+.container-image {
     position: absolute;
     top: 77px;
     left: -68px;
@@ -107,19 +124,23 @@
     height: 234px;
     z-index: 0;
 }
+
 .show-promotion-container {
     position: relative;
     height: 248px;
 }
+
 .show-promotion-text {
     position: absolute;
     bottom: 0;
     right: 0;
     color: #FFFFFF;
 }
+
 .relative-container {
     position: relative;
 }
+
 .rotate-container {
     position: absolute;
     max-width: 278px;
@@ -131,9 +152,11 @@
     left: 0;
     padding: 10px;
 }
+
 .email-message {
     margin-bottom: 15px;
 }
+
 footer {
     background-color: #EEEEEE;
     height: 300px;
@@ -141,28 +164,34 @@ footer {
     padding: 60px 40px;
     color: #606060;
 }
+
 /***************************************************************/
 /* Estilos de la modal de las promociones */
 /********************/
-.img-modal-promotion{
+.img-modal-promotion {
     height: 238px;
     overflow: hidden;
 }
+
 .img-modal-promotion img {
     width: 100%;
     height: auto;
 }
+
 .alert-logged-messsage {
     display: none;
 }
+
 .div-send-commit {
     margin-top: 15px;
     text-align: right;
 }
+
 #created-message {
     overflow-y: auto;
     height: 250px
 }
+
 #loaded-promotion-modal {
     display: none;
     background-color: #333333;
@@ -170,4 +199,39 @@ footer {
     opacity: 0.7;
     color: #FFFFFF;
     font-size: 24px;
+}
+
+/***************************************************************/
+/* Estilos del slider de promociones y filtros  */
+.promotion-container {
+    position: relative;
+    overflow: hidden;
+    height: 540px;
+    margin-left: -8px;
+}
+
+.promotions {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.promotions:not(:first-child) {
+    display: none;
+}
+
+.promotion-row {
+    padding-left: 0;
+}
+
+.active {
+    z-index: 2;
+    color: #ffffff !important;
+    background-color: #3b9fe6 !important;
+    border-color: #3b9fe6 !important;
+}
+/**********/
+.dropdown-cities, .dropdown-category {
+    height: 160px;
+    overflow-y: auto;
 }
