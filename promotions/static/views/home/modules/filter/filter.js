@@ -159,7 +159,19 @@ define([], function () {
                         }
                     }
 
+                    if(citiesInput !== "" && categoryInput === "Todas"){
+                        if(parseInt(dataCities) === parseInt(getData[i].fields.ciudad)){
+                            create_promotion_filter();
+                        }
+                    }
+
                     if(categoryInput !== "" && citiesInput === ""){
+                        if(parseInt(dataCategory) === parseInt(getData[i].fields.category)){
+                            create_promotion_filter();
+                        }
+                    }
+
+                    if(categoryInput !== "" && citiesInput === "Todas"){
                         if(parseInt(dataCategory) === parseInt(getData[i].fields.category)){
                             create_promotion_filter();
                         }
