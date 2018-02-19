@@ -19,6 +19,11 @@ def list_message(request):
     message = serializers.serialize('json', models.Message.objects.all())
     return HttpResponse(message, content_type='application/json')
 
+@csrf_exempt
+def list_cities(request):
+    cities = serializers.serialize('json', models.Cities.objects.all())
+    return HttpResponse(cities, content_type='application/json')
+
 
 
 @csrf_exempt
@@ -30,11 +35,12 @@ def user_information(request):
     else:
         return render(request, "home/index.html")
 
-
+#-rafa
 @csrf_exempt
 def list_promotion(request):
     promotions = serializers.serialize('json', models.Promotion.objects.all())
     return HttpResponse(promotions, content_type='application/json')
+
 
 @csrf_exempt
 def list_category(request):
@@ -89,7 +95,7 @@ def update_user_profile(request):
             address=request.POST['address'],
             category=request.POST['category']
         )
-        return JsonResponse({"message": "Usuario registrado"})
+        return JsonResponse({"message": "Datos actualizados con"})
     else:
         return JsonResponse({"message": "Ups, algo nos impide realizar su actualizaci&oacuten"})
 

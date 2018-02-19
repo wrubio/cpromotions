@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -93,7 +94,7 @@
                         <div class="panel panel-default">
                             <div class="panel-body">
                                 <div class="user-image">
-                                    <img src="https://x1.xingassets.com/assets/frontend_minified/img/users/nobody_m.original.jpg" alt="Ejemplo borrar">
+                                    <img src="" alt="Ejemplo borrar">
                                 </div>
                                 <div class="user-name">
                                     <h4 id="get-username-profile" >User Name</h4>
@@ -172,7 +173,7 @@
                             </div>
                         </div>
                         <div class="panel panel-default">
-                            <div class="panel-body">
+                            <div class="panel-body alert-register">
                                 <div class="row">
                                     <div class="col-md-offset-4 col-md-8" style="text-align: right;">
                                         <button id="btn-edit_information" type="button" class="btn btn-success"><i class="fas fa-edit"></i> Editar</button>
@@ -242,10 +243,11 @@
                     $("#country-profile").val(data[0].fields.country).prop("disabled", true);
                     $("#city-profile").val(data[0].fields.city).prop("disabled", true);
                     $("#address-profile").val(data[0].fields.address).prop("disabled", true);
+                    $(".user-image img").attr("src", "../"+data[0].fields.image );
+                    $("#input-category").val(data[0].fields.category);
                     var getCategory = data[0].fields.category,
                         splitCategory = getCategory.split("-"),
                         checkCategories = $(".check-container");
-                    console.log(checkCategories.length)
                     for(var ca=0; ca<checkCategories.length; ca++){
                         var checkCategory = checkCategories.eq(ca).children().eq(1);
                         for( var sp=0; sp< splitCategory.length; sp++){
@@ -288,7 +290,6 @@
                         "</div>"
                     )
                 }
-
             };
             $.getJSON("https://cpromotion.herokuapp.com/list_category").done(function(data){
                 dataCategory(data);
@@ -324,7 +325,13 @@
                     processData: false,
                     success: function(data){
                         console.log(data);
-                        //window.location.href = "https://cpromotion.herokuapp.com/profile/";
+                        $(".alert-register").append(
+                            "<div class='alert alert-success' role='alert' style='margin-top: 15px;' >"+ data.message + " éxito, la pagina se actulizará para mostrrar cambios" + "</div>"
+                        );
+                        setTimeout(function(){
+                            window.location.href = "https://cpromotion.herokuapp.com/profile/";
+                        }, 3000)
+
                     },
                     failure: function(errMessage){
                         console.log("Error enviando datos de registro");

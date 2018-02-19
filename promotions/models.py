@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 from django import forms
 from django.contrib.auth.models import User
 from django.db import models
-
+#prueba integración con Git
 
 # Create your models here.
 class Category(models.Model):
@@ -14,16 +14,23 @@ class Category(models.Model):
         return u'{}'.format(self.name)
 
 
+class Cities(models.Model):
+    name = models.CharField(max_length=30)
+
+    def __unicode__(self):
+        return u'{}'.format(self.name)
+
 class Promotion(models.Model):
     promotion_name = models.CharField(max_length=50)
     initial_date = models.DateTimeField(auto_now_add=False)
     end_date = models.DateTimeField(auto_now_add=False)
-    city = models.CharField(max_length=20)
-    cost = models.DecimalField(max_digits=10, decimal_places=3)
+    city = models.CharField(max_length=20, null=True)
+    ciudad = models.ForeignKey(Cities, null=True, blank=True)
+    cost = models.DecimalField(max_digits=10, decimal_places=0)
     description = models.CharField(max_length=300)
     image = models.CharField(max_length=600)
     state = models.BooleanField(default=True)
-    category = models.ForeignKey(Category, null=True, blank=True, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, null=True, blank=True)
 
     def __unicode__(self):
         return u'{}'.format(self.promotion_name)
@@ -43,8 +50,7 @@ class Favorite(models.Model):
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, null=True, blank=True, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='static/images/profile', null=True)
-    imageUrl = models.CharField(max_length=50, null=True)
+    image = models.ImageField(upload_to='static/images/profile/', null=True)
     country = models.CharField(max_length=50, null=True)
     city = models.CharField(max_length=50, null=True)
     address = models.CharField(max_length=50, null=True)
