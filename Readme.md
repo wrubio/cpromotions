@@ -29,3 +29,9 @@ Para este desarrollo hemos hecho uso de las siguientes tecnologias:
 * Git
 * Github
 * Heroku
+
+### Deployment en Heroku:
+Para el deployment en Heroku se usan los siguientes archivos:
+
+* Procfile.txt
+* requirements.txt
