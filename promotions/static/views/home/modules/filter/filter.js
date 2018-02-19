@@ -161,6 +161,7 @@ define([], function () {
 
                     if(citiesInput !== "" && categoryInput === "Todas"){
                         if(parseInt(dataCities) === parseInt(getData[i].fields.ciudad)){
+                            console.log("entre");
                             create_promotion_filter();
                         }
                     }
@@ -183,7 +184,15 @@ define([], function () {
                         }
                     }
 
-                    if(citiesInput === "Todas" || categoryInput === "Todas"){
+                    if(citiesInput === "Todas" && categoryInput === "Todas"){
+                        create_promotion_filter();
+                    }
+
+                    if(citiesInput === "Todas" && categoryInput === ""){
+                        create_promotion_filter();
+                    }
+
+                    if(citiesInput === "" && categoryInput === "Todas"){
                         create_promotion_filter();
                     }
 
@@ -196,10 +205,11 @@ define([], function () {
             });
 
             setTimeout(function () {
-                $("ul.pagination ").html("").append(
-                    "<li class='li-arrow arrow-left'><a class='arrow-number' href='#' aria-label='Previous'><span aria-hidden='true'>«</span></a> </li>" +
-                    "<li class='li-arrow arrow-right'><a class='arrow-number' href='#' aria-label='Next'><span aria-hidden='true'>»</span></a></li>"
-                );
+                var ulPagination = $("ul.pagination").children();
+                var getLebthUl = ulPagination.length;
+                for(var ulp=1; ulp<(getLebthUl-1); ulp++){
+                    ulPagination.eq(ulp).remove();
+                }
                 require(['modules/filter/filter'], function (promotion) {
                     promotion.filter();
                 });
