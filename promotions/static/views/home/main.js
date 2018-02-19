@@ -14,7 +14,7 @@ $(document).ready(function () {
         }
 
     };
-    $.getJSON("https://cpromotion.herokuapp.com/list_category").done(function (data) {
+    $.getJSON("http://127.0.0.1:8000/list_category").done(function (data) {
         dataCategory(data);
     });
 
