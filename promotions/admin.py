@@ -1,10 +1,10 @@
 from django.contrib import admin
-from .models import Promotion, Message, Category, Favorite, UserProfile
+from .models import Promotion, Message, Category, Favorite, UserProfile, Cities
 
 
 # Register your models here.
 class PromotionAdmin(admin.ModelAdmin):
-    list_display = ('promotion_name', 'initial_date', 'end_date', 'city', 'cost', 'description', 'image')
+    list_display = ('promotion_name', 'initial_date', 'category', 'ciudad', 'cost', 'description', 'image')
 
 
 class MessageAdmin(admin.ModelAdmin):
@@ -18,3 +18,4 @@ admin.site.register(Message, MessageAdmin)
 admin.site.register(Category)
 admin.site.register(Favorite)
 admin.site.register(UserProfile, ProfileAdmin)
+admin.site.register(Cities)

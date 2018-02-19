@@ -173,7 +173,7 @@
                             </div>
                         </div>
                         <div class="panel panel-default">
-                            <div class="panel-body">
+                            <div class="panel-body alert-register">
                                 <div class="row">
                                     <div class="col-md-offset-4 col-md-8" style="text-align: right;">
                                         <button id="btn-edit_information" type="button" class="btn btn-success"><i class="fas fa-edit"></i> Editar</button>
@@ -325,7 +325,13 @@
                     processData: false,
                     success: function(data){
                         console.log(data);
-                        //window.location.href = "http://127.0.0.1:8000/profile/";
+                        $(".alert-register").append(
+                            "<div class='alert alert-success' role='alert' style='margin-top: 15px;' >"+ data.message + " éxito, la pagina se actulizará para mostrrar cambios" + "</div>"
+                        );
+                        setTimeout(function(){
+                            window.location.href = "http://127.0.0.1:8000/profile/";
+                        }, 3000)
+
                     },
                     failure: function(errMessage){
                         console.log("Error enviando datos de registro");

@@ -18,4 +18,5 @@ urlpatterns = [
     django.conf.urls.url(r'^user_information/$', user_information, name='user_information'),
     django.conf.urls.url(r'^add_message/$', views.add_message, name='add_message'),
     django.conf.urls.url(r'^list_message/$', views.list_message, name='list_message'),
+    django.conf.urls.url(r'^list_cities/$', views.list_cities, name='list_cities'),
 ]
