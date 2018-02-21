@@ -35,8 +35,8 @@ define([], function(){
                         speed: 500,
                         fade: true,
                         cssEase: 'linear',
-                        autoplay: true,
-                        autoplaySpeed: 6000
+                        //autoplay: false,
+                        //autoplaySpeed: 6000
                     });
                     $(".slide-container").css("display", "block");
                     prm=promotions.length;
