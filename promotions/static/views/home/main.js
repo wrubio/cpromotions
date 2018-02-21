@@ -14,7 +14,7 @@ $(document).ready(function () {
         }
 
     };
-    $.getJSON("http://127.0.0.1:8000/list_category").done(function (data) {
+    $.getJSON("https://cpromotion.herokuapp.com/list_category").done(function (data) {
         dataCategory(data);
     });
 
@@ -37,17 +37,6 @@ $(document).ready(function () {
     });
 
     // ==============================================================================================
-    // Show / hide message in promotion modal controller
-    // ==============================================================================================
-    $("#modal-promotion").bind("append", function () {
-        setTimeout(function () {
-            require(['modules/promotions/showHideMessage'], function (promotion) {
-                promotion.showHideMessage();
-            });
-        }, 500);
-    });
-
-    // ==============================================================================================
     // Promotion object creator controller
     // ==============================================================================================
     require(['modules/promotions/createPromotion'], function (promotion) {
@@ -56,7 +45,7 @@ $(document).ready(function () {
     // ==============================================================================================
     // Promotion Modal controller
     // ==============================================================================================
-    $(".promotion-container").on("click", ".modal-promotion", function (e) {
+    $(".promotion-container, #header-slick").on("click", ".modal-promotion", function (e) {
         e.preventDefault();
         var promotionId = $(this).attr("id");
         var splitId = promotionId.split("n");
@@ -199,15 +188,8 @@ $(document).ready(function () {
     // ==============================================================================================
     // Slider controller
     // ==============================================================================================
-    $('.header-slide').slick({
-        dots: true,
-        arrows: false,
-        infinite: true,
-        speed: 500,
-        fade: true,
-        cssEase: 'linear',
-        autoplay: true,
-        autoplaySpeed: 6000
+    require(['modules/slick/slick'], function (slider) {
+        slider.create();
     });
 
 });

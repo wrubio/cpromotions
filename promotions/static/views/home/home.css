@@ -1,3 +1,6 @@
+.header-slide {
+    background: url('/static/images/template/bgSlider.png') repeat-x;
+}
 .slick-track {
     height: 460px; /*594*/
 }
@@ -234,4 +237,79 @@ footer {
 .dropdown-cities, .dropdown-category {
     height: 160px;
     overflow-y: auto;
+}
+
+/************************************************************************/
+/* Estilos del slider header*/
+.slide-container {
+    position: relative;
+}
+.slide-img {
+    position: absolute;
+    bottom: 0;
+    left: 20px;
+    width: 550px;
+    height: 350px;
+    overflow: hidden;
+}
+.slide-img img {
+    width: 550px;
+    height: 350px;
+}
+.slide-title {
+    font-family: 'Open Sans', sans-serif;
+    position: absolute;
+    top: 6px;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    font-size: 64px;
+    color: #FFFFFF;
+}
+.slide-cost {
+    position: absolute;
+    top: 150px;
+    left: 620px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 28px;
+    color: #FFFFFF;
+}
+.slide-description {
+    position: absolute;
+    top: 190px;
+    left: 620px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 20px;
+    color: #FFFFFF;
+}
+.slide-city {
+    position: absolute;
+    top: 300px;
+    left: 620px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 18px;
+    color: #FFFFFF;
+    background: rgba(255, 255, 255, 0.1);
+    text-shadow: none;
+    padding: 0 10px;
+    border-radius: 3px;
+}
+.slide-end-date {
+    position: absolute;
+    top: 330px;
+    left: 620px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 18px;
+    color: #FFFFFF;
+    background: rgba(255, 255, 255, 0.1);
+    text-shadow: none;
+    padding: 0 10px;
+    border-radius: 3px;
+}
+.slide-btn {
+    position: absolute;
+    top: 360px;
+    left: 620px;
 }
