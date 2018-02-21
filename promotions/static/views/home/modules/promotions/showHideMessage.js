@@ -37,9 +37,6 @@ define([], function () {
             var err = textStatus + ", " + error;
         });
 
-        //$("#loaded-promotion-modal").hide();
-        $(".modal-box").modal('show');
-
     };
 
     return promotion;
