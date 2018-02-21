@@ -7,7 +7,9 @@ define([], function () {
     promotion.showHideMessage = function () {
 
         $.getJSON("https://cpromotion.herokuapp.com/list_message").done(function(data) {
+            $("#created-message").html("");
             for( var pro=0; pro<data.length; pro++) {
+
                 if(parseInt(data[pro].fields.promotion) === parseInt($("#modal-promo-name").attr("data-id"))){
                     $("#created-message").prepend(
                         "<div class='form-group'>" +
