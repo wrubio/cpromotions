@@ -378,7 +378,8 @@
 <script src="{% static 'dist/cookiejs/js.cookie.min.js' %}"></script>
 <script src="{% static 'dist/bootstrap/js/bootstrap.min.js' %}"></script>
 <script src="{% static 'dist/slickjs/slick.min.js' %}"></script>
-<script src="{% static 'dist/fontawesome/js/fontawesome-all.min.js' %}"></script>
+<script>FontAwesomeConfig = { searchPseudoElements: true };</script>
+<script defer  src="{% static 'dist/fontawesome/js/fontawesome-all.min.js' %}"></script>
 <script data-main="{% static 'views/home/main.js' %}" src="{% static 'dist/requirejs/require.js' %}"></script>
 <script>
     require.config({

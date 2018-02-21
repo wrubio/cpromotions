@@ -10,18 +10,32 @@
 }
 
 .slick-dots {
-    bottom: -54px;
+    bottom: -76px;
 }
-
+.slick-dots li {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 60px;
+    margin: 0 30px;
+    padding: 0;
+    cursor: pointer;
+}
+.slick-dots li button:before {
+    font-family: none;
+    color: #c5c5c5 !important;
+}
 .slick-dots li button {
+    display: none;
     display: block;
-    width: 20px;
-    height: 20px;
+    width: 60px;
+    height: 60px;
     padding: 0;
     border: none;
     border-radius: 100%;
-    background-color: #efe4e4 !important;
+    background-color: #c5c5c5 !important;
     box-shadow: inset 0 1px 1px 0 #999 !important;
+    margin-right: 30px;
 }
 
 .slick-dots li button:hover, .slick-dots li button:focus, .slick-dots li.slick-active button {
