@@ -20,6 +20,7 @@ class Cities(models.Model):
     def __unicode__(self):
         return u'{}'.format(self.name)
 
+
 class Promotion(models.Model):
     promotion_name = models.CharField(max_length=50)
     initial_date = models.DateTimeField(auto_now_add=False)
@@ -55,6 +56,15 @@ class UserProfile(models.Model):
     city = models.CharField(max_length=50, null=True)
     address = models.CharField(max_length=50, null=True)
     category = models.CharField(max_length=100, null=True)
+    validated_token = models.BooleanField(default=False)
+
+
+class Token(models.Model):
+    user = models.ForeignKey(User, null=False, on_delete=models.CASCADE)
+    token = models.CharField(max_length=100, null=False)
+    created_at = models.DateField(auto_now_add=True)
+    updated_at = models.DateField(auto_now=True)
+    state = models.BooleanField(null=False, default=False)
 
 
 class UserRegister(User):
@@ -91,5 +101,5 @@ class UserForm(forms.ModelForm):
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
-        fields = ('country', 'city', 'address', 'image')
+        fields = ('country', 'city', 'address', 'image', 'validated_token')
 

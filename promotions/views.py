@@ -9,9 +9,12 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 
-from .models import ProfileForm, UserProfile, Message, Promotion
+from .models import ProfileForm, UserProfile, Message, Promotion, Token
 from . import models
 
+from django.core.mail import send_mail
+from uniqtoken import uniqtoken
+from django.template import loader
 
 # Create your views here.
 @csrf_exempt
@@ -19,11 +22,11 @@ def list_message(request):
     message = serializers.serialize('json', models.Message.objects.all())
     return HttpResponse(message, content_type='application/json')
 
+
 @csrf_exempt
 def list_cities(request):
     cities = serializers.serialize('json', models.Cities.objects.all())
     return HttpResponse(cities, content_type='application/json')
-
 
 
 @csrf_exempt
@@ -35,7 +38,7 @@ def user_information(request):
     else:
         return render(request, "home/index.html")
 
-#-rafa
+
 @csrf_exempt
 def list_promotion(request):
     promotions = serializers.serialize('json', models.Promotion.objects.all())
@@ -69,6 +72,7 @@ def add_message(request):
     else:
         return JsonResponse({"message": "Ups! Estamos revisado el problema"})
 
+
 @login_required
 @transaction.atomic
 def update_user_profile(request):
@@ -100,7 +104,6 @@ def update_user_profile(request):
         return JsonResponse({"message": "Ups, algo nos impide realizar su actualizaci&oacuten"})
 
 
-
 @csrf_exempt
 def add_user(request):
     if request.method == 'POST':
@@ -120,6 +123,45 @@ def add_user(request):
                                    address=jsonUser['address'], category=jsonUser['category'])
 
     return HttpResponse(serializers.serialize("json", [user_model]))
+
+
+@csrf_exempt
+def crear_token(request):
+    if request.method == 'POST':
+        param = json.loads(request.body)
+        token = uniqtoken()
+        user = User.objects.get(id=param['user_id'])
+        Token.objects.create(user=user, token=token)
+        url = 'localhost:8000/token/'+token+'/?user_id='+str(param["user_id"])
+        html_message = loader.render_to_string(
+            'email/welcome.html',
+            {
+                'link_url': url,
+            }
+        )
+        send_mail(
+            'Confirmacion de cuenta',
+            'copia y pega en un navegador: '  + url,
+            'root@localhost',
+            [param['email']],
+            fail_silently=False,
+            html_message=html_message
+        )
+    return JsonResponse({"message": {}})
+
+
+@csrf_exempt
+def validar_token(request, token=None):
+    user_id = request.GET.get('user_id')
+    userobj = User.objects.get(id=user_id)
+    tokenObj = Token.objects.filter(token=token)
+    if Token.objects.filter(token=token).exists():
+        tokenObj.update(state=True)
+        UserProfile.objects.filter(user=userobj).update(validated_token=True)
+        return render(request, "profile/index.html")
+    else:
+        return JsonResponse({"message": "no coincide"})
+
 
 
 @csrf_exempt

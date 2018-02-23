@@ -19,4 +19,6 @@ urlpatterns = [
     django.conf.urls.url(r'^add_message/$', views.add_message, name='add_message'),
     django.conf.urls.url(r'^list_message/$', views.list_message, name='list_message'),
     django.conf.urls.url(r'^list_cities/$', views.list_cities, name='list_cities'),
+    django.conf.urls.url(r'^crear_token/$', views.crear_token, name='crear_token'),
+    django.conf.urls.url(r'^token/(?P<token>\w{1,64})/$', views.validar_token, name='validar_token')
 ]
