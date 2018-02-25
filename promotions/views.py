@@ -142,7 +142,7 @@ def crear_token(request):
         token = uniqtoken()
         user = User.objects.get(id=param['user_id'])
         Token.objects.create(user=user, token=token)
-        url = 'localhost:8000/token/'+token+'/?user_id='+str(param["user_id"])
+        url = 'https://cpromotion.herokuapp.com/token/'+token+'/?user_id='+str(param["user_id"])
         html_message = loader.render_to_string(
             'email/welcome.html',
             {
