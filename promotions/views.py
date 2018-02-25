@@ -153,7 +153,7 @@ def crear_token(request):
             'Confirmacion de cuenta',
             'copia y pega en un navegador: '  + url,
             'root@localhost',
-            [param['email'], 'cv.hernandez10@uniandes.edu.co'],
+            [param['email']],
             fail_silently=False,
             html_message=html_message
         )
