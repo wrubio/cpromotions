@@ -18,7 +18,16 @@ define([], function () {
                 if(data.message === "ok"){
                     window.location.href = "https://cpromotion.herokuapp.com/";
                 } else {
-                    console.log(data.message); // Traer el texto para mostrar el retorno
+                    if(data.message === "false"){
+                        bootbox.alert({
+                            message: "Te enviamos un correo de confirmación para finalizar el registro, por favor verifica tu correo para poder acceder.",
+                            className: 'bb-alternate-modal'
+                        });
+                    } else {
+                        $(".login-message").html("").append(
+                            "<div class='alert alert-danger' role='alert' style='padding: 5px 15px;'>"+ data.message +"</div>"
+                        )
+                    }
                 }
 
             },

@@ -37,37 +37,45 @@ define([], function(){
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function(data){
-                    console.log("Te enviamos un correo de confirmación");
-                //    window.location.href = "https://cpromotion.herokuapp.com/";
+                    console.log(data);
+                    if( data.register !== "false"){
+                        //-------------------------------------------------
+                        //         CREAR TOKEN
+                        // -----------------------------------------------
+                        $.ajax({
+                            type: "POST",
+                            url: "https://cpromotion.herokuapp.com/crear_token/",
+                            data: JSON.stringify({
+                                user_id:data[0]["pk"],
+                                name: $("#register-name").val(),
+                                email: $("#register-email").val(),
+                            }),
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            success: function(data){
+                                $(".modal-register").modal('hide');
+                                setTimeout(function () {
+                                    bootbox.alert({
+                                        message: "Te enviamos un correo de confirmación para finalizar el registro",
+                                        className: 'bb-alternate-modal'
+                                    });
+                                    $("#btn-register").remove();
+                                }, 600);
+                            },
+                            failure: function(errMessage){
+                                console.log("Error enviando datos de registro");
+                            }
+                        });
+                    } else {
+                        $(".register-messsage").html("").append(
+                            "<div class='alert alert-danger' role='alert'>"+ data.message +"</div>"
+                        )
+                    }
 
-                //-------------------------------------------------
-                //         CREAR TOKEN
-                // ------------------------------------------------
-
-                    $.ajax({
-                        type: "POST",
-                        url: "https://cpromotion.herokuapp.com/crear_token/",
-                        data: JSON.stringify({
-
-                             user_id:data[0]["pk"],
-                             name: $("#register-name").val(),
-                             email: $("#register-email").val(),
-                        }),
-                        contentType: "application/json; charset=utf-8",
-                        dataType: "json",
-                        success: function(data){
-                            console.log(data);
-                            console.log('hemos enviado un mensaje a tu correo para que valides tu cuenta.' )
-                            window.location.href = "https://cpromotion.herokuapp.com/";
-                        },
-                        failure: function(errMessage){
-                            console.log("Error enviando datos de registro");
-                        }
-                    });
 
                 },
                 failure: function(errMessage){
-                    console.log("Error enviando datos de registro");
+                    console.log(errMessage);
                 }
             });
         }

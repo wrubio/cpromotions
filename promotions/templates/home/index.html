@@ -85,7 +85,11 @@
                                             <div class="col-sm-6" style="text-align: right; padding-right: 0;">
                                                 <a href="#" id="lost-password">Lost your password?</a>
                                             </div>
+                                            <div class="col-sm-12" style="padding: 0;">
+                                                <div class="login-message"></div>
+                                            </div>
                                         </div>
+
                                         <hr style="clear: both;margin-top: 54px; margin-bottom: 20px;">
                                         <div class="form-group">
                                             <div class="col-sm-offset-4 col-sm-8" style="padding-right: 0">
@@ -361,6 +365,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="register-messsage"></div>
                             </div>
                         </div>
                     </div>
@@ -380,6 +385,7 @@
 <script src="{% static 'dist/slickjs/slick.min.js' %}"></script>
 <script>FontAwesomeConfig = { searchPseudoElements: true };</script>
 <script defer  src="{% static 'dist/fontawesome/js/fontawesome-all.min.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
 <script data-main="{% static 'views/home/main.js' %}" src="{% static 'dist/requirejs/require.js' %}"></script>
 <script>
     require.config({
