@@ -9,7 +9,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 
-from .models import ProfileForm, UserProfile, Message, Promotion, Token
+from .models import UserForm, ProfileForm, UserProfile, Message, Promotion, Token
 from . import models
 
 from django.core.mail import send_mail
@@ -114,15 +114,25 @@ def add_user(request):
         password = jsonUser['password']
         email = jsonUser['email']
 
-        user_model = User.objects.create_user(username=username, password=password)
-        user_model.first_name = first_name
-        user_model.last_name = last_name
-        user_model.email = email
-        user_model.save()
-        UserProfile.objects.create(user=user_model, country=jsonUser['country'], city=jsonUser['city'],
-                                   address=jsonUser['address'], category=jsonUser['category'])
+        if not User.objects.filter(username=username).exists():
+            if not User.objects.filter(email=email).exists():
+                user_model = User.objects.create_user(username=username, password=password)
+                user_model.first_name = first_name
+                user_model.last_name = last_name
+                user_model.email = email
+                user_model.save()
+                UserProfile.objects.create(user=user_model, country=jsonUser['country'], city=jsonUser['city'],
+                                           address=jsonUser['address'], category=jsonUser['category'])
 
-    return HttpResponse(serializers.serialize("json", [user_model]))
+                return HttpResponse(serializers.serialize("json", [user_model]))
+            else:
+                email_Message = "El correo " + email + " ya existe!"
+                return JsonResponse({"message": email_Message, "register": "false"})
+
+        else:
+            username_Message = "El usuario " + username + " ya existe!"
+            return JsonResponse({"message": username_Message, "register": "false"})
+
 
 
 @csrf_exempt
@@ -171,11 +181,17 @@ def login_user(request):
         username = jsonUser['username']
         password = jsonUser['password']
         user = authenticate(username=username, password=password)
+
         if user is not None:
-            login(request, user)
-            message = "ok"
+            current_user = User.objects.get(username=username)
+            token_value = current_user.userprofile.validated_token
+            if token_value == 'True':
+                login(request, user)
+                message = "ok"
+            else:
+                return JsonResponse({"message": "false"})
         else:
-            message = "Nombre de usuario o clave no valido"
+            message = "Nombre de usuario o clave no v&aacute;lido"
 
     return JsonResponse({"message": message})
 
