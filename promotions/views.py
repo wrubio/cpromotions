@@ -168,7 +168,7 @@ def validar_token(request, token=None):
     if Token.objects.filter(token=token).exists():
         tokenObj.update(state=True)
         UserProfile.objects.filter(user=userobj).update(validated_token=True)
-        return render(request, "profile/index.html")
+        return render(request, "home/valid_token.html")
     else:
         return JsonResponse({"message": "no coincide"})
 
