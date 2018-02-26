@@ -246,17 +246,21 @@
                     $(".user-image img").attr("src", "../"+data[0].fields.image );
                     $("#input-category").val(data[0].fields.category);
                     var getCategory = data[0].fields.category,
-                        splitCategory = getCategory.split("-"),
-                        checkCategories = $(".check-container");
-                    for(var ca=0; ca<checkCategories.length; ca++){
-                        var checkCategory = checkCategories.eq(ca).children().eq(1);
-                        for( var sp=0; sp< splitCategory.length; sp++){
-                            if(checkCategory.html() === splitCategory[sp] ){
-                                checkCategories.eq(ca).children().eq(0).children().eq(0).css("visibility", "visible");
+                        splitCategory = getCategory.split("-");
+                    
+                    setTimeout(function(){
+                        var checkCategories = $(".check-container");
+                
+                        for(var ca=0; ca<checkCategories.length; ca++){
+                            var checkCategory = checkCategories.eq(ca).children().eq(1);
+                            for( var sp=0; sp< splitCategory.length; sp++){
+                                if(checkCategory.html() === splitCategory[sp] ){
+                                    checkCategories.eq(ca).children().eq(0).children().eq(0).css("visibility", "visible");
+                                }
                             }
-                        }
 
-                    }
+                        }
+                    }, 800);
 
             }).fail();
 
