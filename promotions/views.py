@@ -185,7 +185,7 @@ def login_user(request):
         if user is not None:
             current_user = User.objects.get(username=username)
             token_value = current_user.userprofile.validated_token
-            if token_value == 'True':
+            if token_value:
                 login(request, user)
                 message = "ok"
             else:
