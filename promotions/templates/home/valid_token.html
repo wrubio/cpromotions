@@ -1,0 +1,176 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Promotions Home</title>
+    <link rel="stylesheet" href="{% static 'dist/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'dist/slickjs/slick.css' %}">
+    <link rel="stylesheet" href="{% static 'dist/slickjs/slick-theme.css' %}">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'views/home/home.css' %}">
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-inverse" style="margin-bottom: 0;border-radius: 0;">
+        <div class="container scontainer-fluid" style="padding-left: 40px; padding-right: 40px;">
+            <div class="navbar-header">
+                <button type="button" class="collapsed navbar-toggle" data-toggle="collapse"
+                        data-target="#bs-example-navbar-collapse-3" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="#" class="navbar-brand">cPromociones</a>
+            </div>
+            <div class="navbar-right" id="" style="padding-right: 10px;">
+                <ul class="nav navbar-nav navbar-right" style="margin-right: 0;">
+                    <li id="li-register" style="display: none;">
+                        <a id="btn-register" href="#">Registrar</a>
+                    </li>
+                    <li id="li-welcome" style="display: none;">
+                        Bienvenido
+                    </li>
+                    <li id="li-username" style="display: none;">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false"
+                                    style="background-color: transparent; color: #FFFFFF;">
+                                <span class="btn-username"></span> <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Menu de usuario:</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="https://cpromotion.herokuapp.com/profile/">Profile</a></li>
+                                <li><a href="#">Promociones</a></li>
+                                <li><a href="#">Categorías</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li style="padding: 10px;">
+                                    <button id="btn-logout" class="btn btn-danger btn-block" type="submit">Sing out <i
+                                            class="fas fa-sign-out-alt"></i></button>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li id="li-login" style="display: none;">
+                        <div class="dropdown" style="padding-top: 8px;">
+                            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                Login
+                                <web></web>
+                                <span class="caret"></span>
+                            </button>
+                            <ul id="login-btn" class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                <li>
+                                    <form>
+                                        <div class="form-group">
+                                            <label for="loginEmail">Username:</label>
+                                            <input type="email" class="form-control" id="login-username"
+                                                   placeholder="Username">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="loginPassword">Password</label>
+                                            <input type="password" class="form-control" id="login-password"
+                                                   placeholder="Password">
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-6" style="margin-top: -10px; padding-left: 0;">
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox"> Remember me
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6" style="text-align: right; padding-right: 0;">
+                                                <a href="#" id="lost-password">Lost your password?</a>
+                                            </div>
+                                            <div class="col-sm-12" style="padding: 0;">
+                                                <div class="login-message"></div>
+                                            </div>
+                                        </div>
+
+                                        <hr style="clear: both;margin-top: 54px; margin-bottom: 20px;">
+                                        <div class="form-group">
+                                            <div class="col-sm-offset-4 col-sm-8" style="padding-right: 0">
+                                                <button id="login-promotion" type="submit"
+                                                        class="btn btn-default btn-block">Ingresar
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="header-slide">
+        <div id="header-slick" class="container">
+
+        </div>
+    </div>
+</header>
+<nav>
+    <div class="slider-docks"></div>
+</nav>
+<section>
+
+    <div class="row">
+        <div class="col-12" style="text-align: center;margin:auto">
+            <h3>¡Felicitaciones! tu Cuenta ha sido confirmada</h3>
+            <p>Ahora tienes acceso a las mejores promociones del pais. </p>
+            <p></p>
+            <button class="btn btn-primary" href="https://cpromotion.herokuapp.com">
+                Ir a inicio
+            </button>
+        </div>
+
+    </div>
+</section>
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <h3 style="font-weight: bold;margin-top: -5px;">Titulo</h3>
+                <p>Information</p>
+                <p>Find here</p>
+                <p>Last Promotion</p>
+                <p>Category</p>
+                <p>City</p>
+            </div>
+            <div class="col-md-4" style="text-align: center">
+                <p>cPromotion - Bogotá | 2018 | All rights reserved</p>
+                <p>Street 21 Ave 24A - 73</p>
+                <p>cpromotion@email.com</p>
+            </div>
+            <div class="col-md-4" style="text-align: right;margin-top: -5px;">
+                <h3 style="font-weight: bold" ;>Social links</h3>
+                <p><i class="fab fa-facebook-square"></i> facebook/asdasdasd </p>
+                <p><i class="fab fa-youtube"></i> youtube/asdasdsa</p>
+                <p><i class="fab fa-twitter"></i> twitter/asdasdasd</p>
+                <p><i class="fab fa-linkedin"></i> linkedin/asdasdsa</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="{% static 'dist/jquery/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'dist/cookiejs/js.cookie.min.js' %}"></script>
+<script src="{% static 'dist/bootstrap/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'dist/slickjs/slick.min.js' %}"></script>
+<script>FontAwesomeConfig = { searchPseudoElements: true };</script>
+<script defer  src="{% static 'dist/fontawesome/js/fontawesome-all.min.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
+<script data-main="{% static 'views/home/main.js' %}" src="{% static 'dist/requirejs/require.js' %}"></script>
+<script>
+    require.config({
+        urlArgs: "bust=v2"
+    });
+</script>
+</body>
+</html>
